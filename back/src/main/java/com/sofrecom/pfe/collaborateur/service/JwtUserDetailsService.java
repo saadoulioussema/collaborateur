@@ -10,7 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sofrecom.pfe.collaborateur.dao.UserDao;
-import com.sofrecom.pfe.collaborateur.model.*;
+import com.sofrecom.pfe.collaborateur.model.DAOUser;
+import com.sofrecom.pfe.collaborateur.model.UserDTO;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {

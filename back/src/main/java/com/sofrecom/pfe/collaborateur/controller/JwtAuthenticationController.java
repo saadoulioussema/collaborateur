@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.sofrecom.pfe.collaborateur.service.*;
+
+import com.sofrecom.pfe.collaborateur.config.JwtTokenUtil;
+import com.sofrecom.pfe.collaborateur.model.JwtRequest;
+import com.sofrecom.pfe.collaborateur.model.JwtResponse;
+import com.sofrecom.pfe.collaborateur.model.UserDTO;
+import com.sofrecom.pfe.collaborateur.service.JwtUserDetailsService;
 
 
-import com.sofrecom.pfe.collaborateur.config.*;
-import com.sofrecom.pfe.collaborateur.model.*;
+
 
 @RestController
 public class JwtAuthenticationController {
