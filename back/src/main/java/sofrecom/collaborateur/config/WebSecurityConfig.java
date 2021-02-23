@@ -1,4 +1,4 @@
-package com.sofrecom.pfe.collaborateur.config;
+package sofrecom.collaborateur.config;
 
 import java.util.Arrays;
 
@@ -54,25 +54,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
-	public CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("*"));
-		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-		configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-		configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
-	}
-
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-
+		
 		// We don't need CSRF for this example/
-
+		
+	
 		httpSecurity.csrf().disable().cors().and()
 				// dont authenticate this particular request
-				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+//				.authorizeRequests().antMatchers("/auth/login", "/auth/register","users/**/**").permitAll().
+				.authorizeRequests().antMatchers("/**").permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to

@@ -1,4 +1,4 @@
-package com.sofrecom.pfe.collaborateur.model;
+package sofrecom.collaborateur.model;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package com.sofrecom.pfe.collaborateur.exception;
+package sofrecom.collaborateur.exception;
 
 import java.util.Date;
 

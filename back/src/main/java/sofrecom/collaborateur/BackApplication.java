@@ -1,4 +1,4 @@
-package com.sofrecom.pfe.collaborateur;
+package sofrecom.collaborateur;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

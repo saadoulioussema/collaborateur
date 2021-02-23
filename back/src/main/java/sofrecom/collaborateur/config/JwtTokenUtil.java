@@ -1,4 +1,4 @@
-package com.sofrecom.pfe.collaborateur.config;
+package sofrecom.collaborateur.config;
 
 import java.io.Serializable;
 import java.util.Date;

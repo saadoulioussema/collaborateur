@@ -1,4 +1,4 @@
-package com.sofrecom.pfe.collaborateur.config;
+package sofrecom.collaborateur.config;
 
 import java.io.IOException;
 
@@ -15,9 +15,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.sofrecom.pfe.collaborateur.service.JwtUserDetailsService;
-
 import io.jsonwebtoken.ExpiredJwtException;
+import sofrecom.collaborateur.serviceImpl.JwtUserDetailsService;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -48,7 +47,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				System.out.println("JWT Token has expired");
 			}
 		} else {
-			logger.warn("JWT Token does not begin with Bearer String");
+			//logger.warn("JWT Token does not begin with Bearer String");
 		}
 
 		// Once we get the token validate it.
