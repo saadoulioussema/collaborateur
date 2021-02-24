@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 
 @Entity
@@ -24,33 +27,57 @@ public class Objectif {
 	private String commentaire;
 	@Column(nullable = true)
 	private String autoEvaluation;
+	
+	@ManyToOne
+    @JoinColumn(name = "idUser", referencedColumnName = "id")
+	private DAOUser user;
+	
+	
+	@ManyToOne
+    @JoinColumn(name = "idCampagne", referencedColumnName = "id")
+	private Campagne campagne;
+	
+	
+	public Objectif() {
+		super();
+	}
+
 	public long getId() {
 		return id;
 	}
+	
 	public void setId(long id) {
 		this.id = id;
 	}
+	
 	public String getDesignation() {
 		return designation;
 	}
+	
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+	
 	public String getEvaluation() {
 		return evaluation;
 	}
+	
 	public void setEvaluation(String evaluation) {
 		this.evaluation = evaluation;
 	}
+	
 	public String getCommentaire() {
 		return commentaire;
 	}
+	
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
+	
 	public String getAutoEvaluation() {
 		return autoEvaluation;
 	}
+	
 	public void setAutoEvaluation(String autoEvaluation) {
 		this.autoEvaluation = autoEvaluation;
 	}

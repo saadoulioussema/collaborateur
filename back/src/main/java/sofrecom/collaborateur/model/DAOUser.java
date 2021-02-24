@@ -3,8 +3,11 @@ package sofrecom.collaborateur.model;
 
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
+
+
 
 @Entity
 @Table(name = "user")
@@ -27,8 +30,23 @@ public class DAOUser {
 	private String matirucule;
 	@Column(nullable = true)
 	private Date dateIntegration;
-	@Column(nullable = true)
-	private DAOUser manager;
+
+	
+//	private DAOUser manager;
+	
+	@OneToMany(mappedBy="user")
+	private List<Objectif> ojectifs;
+	
+	@OneToMany(mappedBy="user")
+	private List<Entretien> entretiens;
+	
+	@ManyToOne
+    @JoinColumn(name = "idFonction", referencedColumnName = "id")
+	private Fonction fonction;
+	
+	@ManyToOne
+    @JoinColumn(name = "idDirection", referencedColumnName = "id")
+	private Direction direction;
 	
 
 	public DAOUser() {
@@ -85,24 +103,27 @@ public class DAOUser {
 	public String getFullname() {
 		return fullname;
 	}
-	
-
-	public DAOUser getManager() {
-		return manager;
-	}
-
-
-	public void setManager(DAOUser manager) {
-		this.manager = manager;
-	}
-
 
 	@Override
 	public String toString() {
 		return "DAOUser [id=" + id + ", fullname=" + fullname + ", email=" + email + ", username=" + username
 				+ ", password=" + password + ", matirucule=" + matirucule + ", dateIntegration=" + dateIntegration
-				+ ", manager=" + manager + "]";
+				+ ", ojectifs=" + ojectifs + ", entretiens=" + entretiens + ", fonction=" + fonction + ", direction="
+				+ direction + "]";
 	}
+	
+
+//	public DAOUser getManager() {
+//		return manager;
+//	}
+//
+//
+//	public void setManager(DAOUser manager) {
+//		this.manager = manager;
+//	}
+
+
+	
 
 	
 }
