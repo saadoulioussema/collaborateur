@@ -8,13 +8,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fonction")
-public class Fonction {
-
+@Table(name = "campagne")
+public class Campagne {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private String id;
+	@Column(nullable = true)
+	private Boolean actif;
 	
-	@Column(nullable = false)
-	private String libelle;
+	
+	public Campagne() {
+		super();
+	}
+
+
+	public Boolean getActif() {
+		return actif;
+	}
+
+
+	public void setActif(Boolean actif) {
+		this.actif = actif;
+	}
+
 }
