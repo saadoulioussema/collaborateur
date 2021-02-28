@@ -27,7 +27,7 @@ public class Entretien {
 	private DAOUser user;
 	
 	@ManyToOne
-    @JoinColumn(name = "idCampagne", referencedColumnName = "id")
+    @JoinColumn(name = "idCampagne", referencedColumnName = "idCampagne")
 	private Campagne campagne;
 
 }

@@ -28,13 +28,16 @@ public class Objectif {
 	@Column(nullable = true)
 	private String autoEvaluation;
 	
+	
+	
+	
 	@ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "id")
 	private DAOUser user;
 	
 	
 	@ManyToOne
-    @JoinColumn(name = "idCampagne", referencedColumnName = "id")
+    @JoinColumn(name = "idCampagne", referencedColumnName = "idCampagne")
 	private Campagne campagne;
 	
 	

@@ -1,5 +1,11 @@
 package sofrecom.collaborateur.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +31,10 @@ import sofrecom.collaborateur.serviceImpl.JwtUserDetailsService;
 @RestController
 public class JwtAuthenticationController {
 
+	
+
+	 
+	 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -64,6 +74,7 @@ public class JwtAuthenticationController {
 		authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
 		final String token = jwtTokenUtil.generateToken(userDetails);
+			
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 

@@ -14,9 +14,14 @@ import javax.persistence.Table;
 @Table(name = "campagne")
 public class Campagne {
 	
+
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id ;
+	
 	@Id
-	private String id;
-	@Column(nullable = true)
+	private String idCampagne;
+	
+	@Column(nullable = false)
 	private Boolean actif;
 	
 	
@@ -41,5 +46,17 @@ public class Campagne {
 	public void setActif(Boolean actif) {
 		this.actif = actif;
 	}
+
+
+	public String getIdCampagne() {
+		return idCampagne;
+	}
+
+
+	public void setIdCampagne(String idCampagne) {
+		this.idCampagne = idCampagne;
+	}
+	
+	
 
 }
