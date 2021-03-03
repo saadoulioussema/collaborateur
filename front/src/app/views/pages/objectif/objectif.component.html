@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initialscale=1.0">
+<title>Document</title>
+<link rel="stylesheet"
+href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+   .notShown {
+      display: none;
+   }
+</style>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+</head>
+<body>
+<table id="details">
+<thead>
+<tr>
+<th>Name</th>
+<th>Age</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>John</td><td>23</td>
+<tr><td>David</td><td>26</td>
+</tbody>
+</table>
+<script>
+   var convertedIntoArray = [];
+   $("table#details tr").each(function() {
+      var rowDataArray = [];
+      var actualData = $(this).find('td');
+      if (actualData.length > 0) {
+         actualData.each(function() {
+            rowDataArray.push($(this).text());
+         });
+         convertedIntoArray.push(rowDataArray);
+      }
+   });
+   console.log(convertedIntoArray);
+</script>
+</body>
+</html>
