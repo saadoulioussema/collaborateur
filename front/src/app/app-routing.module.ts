@@ -1,5 +1,5 @@
 import { MyPageComponent } from './views/pages/my-page/my-page.component';
-import { TestComponent } from './views/pages/test/test.component';
+
 
 // Angular
 import {NgModule} from '@angular/core';
@@ -70,7 +70,6 @@ const routes: Routes = [
 			// {path: '**', redirectTo: 'error/:type', pathMatch: 'full'},
 		],
 	},
-	{path: 'direction', component: TestComponent},
 	{path: 'collaborateur/autoEvaluation', component: CollaborateurComponent},
 	{
 		path: 'error/404',
