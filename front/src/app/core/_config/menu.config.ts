@@ -354,24 +354,16 @@ export class MenuConfig {
 							title: 'Wizard',
 							bullet: 'dot',
 							icon: 'flaticon2-mail-1',
-							submenu: [
-								{
-									title: 'Wizard 1',
-									page: '/wizard/wizard-1'
-								},
-								{
-									title: 'Wizard 2',
-									page: '/wizard/wizard-2'
-								},
-								{
-									title: 'Wizard 3',
-									page: '/wizard/wizard-3'
-								},
-								{
-									title: 'Wizard 4',
-									page: '/wizard/wizard-4'
-								},
-							]
+							// submenu: [
+							// 	{
+							// 		title: 'Wizard 1',
+							// 		page: '/wizard/wizard-1'
+							// 	},
+							// 	{
+							// 		title: 'Wizard 2',
+							// 		page: '/wizard/wizard-2'
+							// 	},
+							// ]
 						},
 					]
 				},
@@ -659,18 +651,7 @@ export class MenuConfig {
 					bullet: 'dot',
 					icon: 'flaticon2-user-outline-symbol',
 					page: '/collaborateur',
-					submenu: [
-						{
-							title: 'Mes objectifs',
-							page: '/collaborateur/objectif'
-						},
-						{
-							title: 'Auto evaluation',
-							page: '/collaborateur/evaluation'
-						},
-					]
 				},
-				
 				{
 					title: 'eCommerce',
 					bullet: 'dot',
@@ -735,19 +716,6 @@ export class MenuConfig {
 							title: 'Error 6',
 							page: '/error/error-v6'
 						},
-					]
-				},
-				{
-					title: 'Wizard',
-					root: true,
-					bullet: 'dot',
-					icon: 'flaticon2-mail-1',
-					submenu: [
-						{
-							title: 'Wizard 3',
-							page: '/wizard/wizard-3'
-						},
-
 					]
 				},
 			]

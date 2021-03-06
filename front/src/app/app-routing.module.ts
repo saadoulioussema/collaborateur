@@ -1,3 +1,4 @@
+import { MyPageComponent } from './views/pages/my-page/my-page.component';
 import { TestComponent } from './views/pages/test/test.component';
 
 // Angular
@@ -10,7 +11,7 @@ import {ErrorPageComponent} from './views/theme/content/error-page/error-page.co
 import {AuthGuardService} from './services/auth-guard.service';
 
 import { CollaborateurComponent } from './views/pages/collaborateur/collaborateur.component';
-import { ObjectifComponent } from './views/pages/objectif/objectif.component';
+
 
 const routes: Routes = [
 	{path: 'auth', loadChildren: () => import('./views/pages/auth/auth.module').then(m => m.AuthModule)},
@@ -23,6 +24,14 @@ const routes: Routes = [
 				path: 'dashboard',
 				loadChildren: () => import('./views/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
 			},
+
+			{
+				path: 'my-page', component: MyPageComponent,
+			},
+			{
+				path: 'collaborateur', component: CollaborateurComponent,
+			},
+			
 			{
 				path: 'mail',
 				loadChildren: () => import('./views/pages/apps/mail/mail.module').then(m => m.MailModule),
@@ -44,10 +53,6 @@ const routes: Routes = [
 				loadChildren: () => import('./views/pages/user-management/user-management.module').then(m => m.UserManagementModule),
 			},
 			{
-				path: 'wizard',
-				loadChildren: () => import('./views/pages/wizard/wizard.module').then(m => m.WizardModule),
-			},
-			{
 				path: 'builder',
 				loadChildren: () => import('./views/theme/content/builder/builder.module').then(m => m.BuilderModule),
 			},
@@ -65,9 +70,8 @@ const routes: Routes = [
 			// {path: '**', redirectTo: 'error/:type', pathMatch: 'full'},
 		],
 	},
-	{path: 'collaborateur', component: CollaborateurComponent},
 	{path: 'direction', component: TestComponent},
-	{path: 'collaborateur/objectif', component: ObjectifComponent},
+	{path: 'collaborateur/autoEvaluation', component: CollaborateurComponent},
 	{
 		path: 'error/404',
 		component: ErrorPageComponent,

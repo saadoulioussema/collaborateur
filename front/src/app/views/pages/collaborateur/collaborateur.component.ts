@@ -1,69 +1,66 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Objectif } from './../../../shared/objectif';
+import { ObjectifService } from './../../../services/objectif.service';
+import { Component,OnInit } from '@angular/core';
+
+
 
 @Component({
-  selector: 'kt-collaborateur',
+  selector: 'sc-collaborateur',
   templateUrl: './collaborateur.component.html',
   styleUrls: ['./collaborateur.component.scss']
 })
-export class CollaborateurComponent implements OnInit {
-	@ViewChild('wizard', {static: true}) el: ElementRef;
-  constructor() { }
-
-	model: any = {
-		projetProfessionel: '',
-		formation: '',
-		certification: '',
-		objectif: '',
-		evaluation: 'NONE',
-		commentaire:'',
-		collaborateur: '',
-		package: 'Complete Workstation (Monitor, Computer, Keyboard & Mouse)',
-		weight: '25',
-		width: '110',
-		height: '90',
-		length: '150',
-		delivery: 'overnight',
-		packaging: 'regular',
-		preferreddelivery: 'morning',
-		locaddress1: 'Address Line 1',
-		locaddress2: 'Address Line 2',
-		locpostcode: '3072',
-		loccity: 'Preston',
-		locstate: 'VIC',
-		loccountry: 'AU',
-	};
+export class CollaborateurComponent implements OnInit  {
+	tempList: Array<Objectif> = [];
+	objectifs: Objectif[];
+	distinction = "4";
 	submitted = false;
 
-
-	ngOnInit() {
+	constructor(private objectifService: ObjectifService) {
 	}
 
-	ngAfterViewInit(): void {
-		// Initialize form wizard
-		const wizard = new KTWizard(this.el.nativeElement, {
-			startStep: 1
-		});
+	ngOnInit() {
+		this.getAllObjectifs();
+	}
 
-		// Validation before going to next page
-		wizard.on('beforeNext', (wizardObj) => {
-			// https://angular.io/guide/forms
-			// https://angular.io/guide/form-validation
-
-			// validate the form and use below function to stop the wizard's step
-			// wizardObj.stop();
-		});
-
-		// Change event
-		wizard.on('change', () => {
-			setTimeout(() => {
-				KTUtil.scrollTop();
-			}, 500);
-		});
+	
+	change(objectif: Objectif) {
+		let flag = false;
+		if (this.tempList.length == 0) {
+			this.tempList.push(objectif);
+		}
+		else {
+			for (let i = 0; i < this.tempList.length; i++) {
+				if (this.tempList[i] == objectif) {
+					console.log("objectif found ! saving changes on a temp list  list ");
+					flag = true;
+					this.tempList[i].autoEvaluation = objectif.autoEvaluation;
+					this.tempList[i].commentaire = objectif.commentaire;
+				}
+				if (flag == false) {
+					console.log("objectif not found time to push a new objectif ");
+					this.tempList.push(objectif);
+				}
+			}
+		}
 	}
 
 	onSubmit() {
 		this.submitted = true;
 	}
+
+	autoEvaluate() {
+		console.log("in auto evaluate method ");
+		for (let i = 0; i < this.tempList.length; i++) {
+			console.log("saving ...");
+			this.objectifService.saveObjectif(this.tempList[i]).subscribe();
+		}
+	}
+
+	getAllObjectifs() {
+		this.objectifService.getObjectifsList().subscribe(data => {
+			this.objectifs = data,
+				console.log("Objectif List  : ", this.objectifs);
+		});
+	}
+
 }
-
-

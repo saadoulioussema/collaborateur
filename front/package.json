@@ -1,5 +1,5 @@
 {
-    "name": "metronic-angular",
+    "name": "sofrecom-angular",
     "version": "6.1.5",
     "description": "Packages used by Angular",
     "scripts": {
@@ -89,7 +89,7 @@
         "protractor": "~5.4.2",
         "ts-node": "~8.2.0",
         "tslint": "~5.17.0",
-        "typescript": "~3.4.5",
+        "typescript": "^3.4.5",
         "webpack-bundle-analyzer": "^3.6.0",
         "webpack-cli": "^3.3.10",
         "webpack-messages": "^2.0.4",

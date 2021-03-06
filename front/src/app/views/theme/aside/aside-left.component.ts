@@ -1,13 +1,4 @@
-import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
-	ElementRef,
-	OnInit,
-	Renderer2,
-	ViewChild
-} from '@angular/core';
+import {AfterViewInit,ChangeDetectionStrategy,ChangeDetectorRef,Component,ElementRef,OnInit,Renderer2,ViewChild} from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import * as objectPath from 'object-path';

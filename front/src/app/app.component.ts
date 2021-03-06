@@ -17,7 +17,7 @@ import { locale as frLang } from './core/_config/i18n/fr';
 	selector: 'body[kt-root]',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, OnDestroy {
 	// Public properties
