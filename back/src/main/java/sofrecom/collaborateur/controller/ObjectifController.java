@@ -8,10 +8,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import sofrecom.collaborateur.model.Objectif;
 import sofrecom.collaborateur.service.IObjectifService;
+
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
@@ -40,5 +44,13 @@ public class ObjectifController {
 			return objectifService.getAllObjectifs(key);
 		}
 	}
+		
+		@PutMapping("autoEvaluateObjectif")
+		@ResponseBody
+		public void autoEvaluateObjectif(@RequestBody Objectif objectif) {
+		 objectifService.autoEvaluateObjectif(objectif);
+	}
+		
 
+	
 }

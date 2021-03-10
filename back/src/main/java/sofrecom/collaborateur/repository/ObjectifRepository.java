@@ -13,5 +13,8 @@ public interface ObjectifRepository extends CrudRepository<Objectif, Long> {
 	
     @Query("select o from Objectif o join o.campagne c where c.idCampagne=:idCampagne")
     public List<Objectif> findByidCampagne(@Param("idCampagne")String idCampagne);
+    
+    @Query("select o from Objectif o where o.id=:id")
+    public Objectif findByIdObjectif(@Param("id")long id);
 
 }

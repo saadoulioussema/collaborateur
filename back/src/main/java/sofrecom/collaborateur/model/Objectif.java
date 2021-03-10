@@ -84,6 +84,25 @@ public class Objectif {
 	public void setAutoEvaluation(String autoEvaluation) {
 		this.autoEvaluation = autoEvaluation;
 	}
+	
+	
+	
+	public DAOUser getUser() {
+		return user;
+	}
+
+	public void setUser(DAOUser user) {
+		this.user = user;
+	}
+
+	public Campagne getCampagne() {
+		return campagne;
+	}
+
+	public void setCampagne(Campagne campagne) {
+		this.campagne = campagne;
+	}
+
 	@Override
 	public String toString() {
 		return "Objectif [id=" + id + ", designation=" + designation + ", evaluation=" + evaluation + ", commentaire="
