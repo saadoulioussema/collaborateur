@@ -1,3 +1,4 @@
+
 // Angular
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -22,6 +23,7 @@ import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
 import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
 
+
 const routes: Routes = [
 	{
 		path: '',
@@ -44,7 +46,7 @@ const routes: Routes = [
 			{
 				path: 'forgot-password',
 				component: ForgotPasswordComponent,
-			}
+			},
 		]
 	}
 ];
@@ -78,7 +80,7 @@ const routes: Routes = [
 		LoginComponent,
 		RegisterComponent,
 		ForgotPasswordComponent,
-		AuthNoticeComponent
+		AuthNoticeComponent,
 	]
 })
 

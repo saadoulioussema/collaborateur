@@ -18,15 +18,20 @@ public class ObjectifService implements IObjectifService {
 	
 	
 	@Override
-	public List<Objectif> getAllObjectifs(String idCampagne) {
-		return (List<Objectif>)ObjectifRepo.findByidCampagne(idCampagne);
+	public List<Objectif> getAllObjectifs(String idCompagne,long idUser) {
+		return (List<Objectif>)ObjectifRepo.findByidCompagne(idCompagne,idUser);
 	}
 	
 	@Override
 	public void autoEvaluateObjectif(Objectif objectif) {
 	  Objectif obj=ObjectifRepo.findByIdObjectif(objectif.getId());
-	  objectif.setCampagne(obj.getCampagne());
+	  objectif.setCompagne(obj.getCompagne());
 	  objectif.setUser(obj.getUser());
 	  ObjectifRepo.save(objectif);
+	}
+
+	@Override
+	public List<Objectif> getCollaborateurObjectifsForManager(long id) {
+		return (List<Objectif>)ObjectifRepo.findByIdUser(id);
 	}
 }

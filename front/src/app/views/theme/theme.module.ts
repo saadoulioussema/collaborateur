@@ -1,4 +1,3 @@
-import { NgxPermissionsModule } from 'ngx-permissions';
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -37,6 +36,7 @@ import { HtmlClassService } from './html-class.service';
 import { HeaderMobileComponent } from './header/header-mobile/header-mobile.component';
 import { ErrorPageComponent } from './content/error-page/error-page.component';
 import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from '../../core/auth';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
 	declarations: [

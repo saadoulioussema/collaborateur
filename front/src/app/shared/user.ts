@@ -1,3 +1,4 @@
+
 // import { Address } from './address.model';
 // import { SocialNetworks } from './social-networks.model';
 
@@ -8,6 +9,10 @@ export class User {
     username: string;
     password: string;
     pic: string ="";
+    managerId:number;
+    fonctionId:number;
+    dateIntegration:string;
+    matricule:string;
     // accessToken: string;
     // refreshToken: string;
     // roles: number[];

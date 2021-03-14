@@ -49,15 +49,15 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr *ngFor="let objectif of objectifs">
+															<tr *ngFor="let objectif of objectifs ; let i = index ">
 																<td>
-																	{{objectif.designation}}
+																	{{objectif.designation}} 
 																</td>
 																<td>
-																	<select (change)="change(objectif)" class="form-control" name={{objectif.autoEvaluation}}{{objectif.designation}} [(ngModel)]="objectif.autoEvaluation">
-																		<option value="CURRENT" selected>
+																	<select (change)="change(objectif)" class="form-control" name={{i}}{{objectif.id}}  [(ngModel)]="objectif.autoEvaluation">
+																		<option value={{objectif.autoEvaluation}} selected>
 																			{{objectif.autoEvaluation}}</option>
-																		<option value="Performance ameliore">Performance
+																		<option value="Performance à amelioré">Performance à
 																			ameliore</option>
 																		<option value="Zone de conformite">Zone de
 																			conformite</option>
@@ -68,7 +68,7 @@
 																	</select>
 																</td>
 																<td>
-																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" value={{objectif.commentaire}} name={{objectif.commentaire}}{{distinction}} [(ngModel)]="objectif.commentaire">
+																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" value={{objectif.commentaire}} name={{i}} [(ngModel)]="objectif.commentaire">
 																	 </textarea>
 																</td>
 															</tr>

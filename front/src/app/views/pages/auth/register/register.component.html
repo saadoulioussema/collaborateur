@@ -59,6 +59,18 @@
 			</div>
 			<div class="form-group">
 				<mat-form-field>
+					<mat-label>Matricule</mat-label>
+					<input matInput type="text" placeholder="Matricule" formControlName="matricule"/>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field>
+					<mat-label>Date d'intégration</mat-label>
+					<input matInput type="text" placeholder="Date d'intégration" formControlName="dateIntegration"/>
+				</mat-form-field>
+			</div>
+			<div class="form-group">
+				<mat-form-field>
 					<mat-label>{{ 'AUTH.INPUT.PASSWORD' | translate }}</mat-label>
 					<input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}" formControlName="password" autocomplete="off"/>
 					<mat-error *ngIf="isControlHasError('password','required')">

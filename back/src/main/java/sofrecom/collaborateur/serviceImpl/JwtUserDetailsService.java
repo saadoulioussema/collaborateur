@@ -1,6 +1,10 @@
 package sofrecom.collaborateur.serviceImpl;
 
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,16 +44,18 @@ public class JwtUserDetailsService implements UserDetailsService {
 	}
 	
 	
-	public DAOUser save(DTOUser user) {
+	public DAOUser save(DTOUser user) throws ParseException {
 		DAOUser newUser = new DAOUser();
 		newUser.setFullname(user.getFullname());
 		newUser.setEmail(user.getEmail());
+		newUser.setMatricule(user.getMatricule());
+	    Date dateConverted=new SimpleDateFormat("dd/MM/yyyy").parse(user.getDateIntegration());  
+		newUser.setDateIntegration(dateConverted);	
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
-		return userRepo.save(newUser);
+		return userRepo.save(newUser);		
+		
+	    
+	    
 	}	
-	
-
-	
-	
 }

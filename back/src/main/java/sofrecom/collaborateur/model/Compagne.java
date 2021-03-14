@@ -10,34 +10,43 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "campagne")
-public class Campagne {
-	
 
+@Entity
+@Table(name = "compagne")
+public class Compagne {
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id ;
 	
 	@Id
-	private String idCampagne;
+	private String idCompagne;
 	
 	@Column(nullable = false)
 	private Boolean actif;
 	
-	
-	@OneToMany(mappedBy="campagne")
+
+	@OneToMany(mappedBy="compagne")
 	private List<Objectif> objectifs;
 	
-	@OneToMany(mappedBy="campagne")
+
+	@OneToMany(mappedBy="compagne")
 	private List<Entretien> entretiens;
 	
 	
 	
-	public Campagne() {
+	public Compagne() {
 		super();
 	}
 
+	public String getIdCompagne() {
+		return idCompagne;
+	}
 
+
+	public void setIdCompagne(String idCompagne) {
+		this.idCompagne = idCompagne;
+	}
+	
 	public Boolean getActif() {
 		return actif;
 	}
@@ -48,15 +57,6 @@ public class Campagne {
 	}
 
 
-	public String getIdCampagne() {
-		return idCampagne;
-	}
 
-
-	public void setIdCampagne(String idCampagne) {
-		this.idCampagne = idCampagne;
-	}
-	
-	
 
 }

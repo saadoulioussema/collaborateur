@@ -1,28 +1,35 @@
 import { Objectif } from './../../../shared/objectif';
 import { ObjectifService } from './../../../services/objectif.service';
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 
 @Component({
-  selector: 'sc-collaborateur',
-  templateUrl: './collaborateur.component.html',
-  styleUrls: ['./collaborateur.component.scss']
+	selector: 'sc-collaborateur',
+	templateUrl: './collaborateur.component.html',
+	styleUrls: ['./collaborateur.component.scss']
 })
-export class CollaborateurComponent implements OnInit  {
+export class CollaborateurComponent implements OnInit {
 	tempList: Array<Objectif> = [];
 	objectifs: Objectif[];
-	distinction = "4";
 	submitted = false;
 
 	constructor(private objectifService: ObjectifService) {
 	}
 
 	ngOnInit() {
-		this.getAllObjectifs();
+		let id = localStorage.getItem("Id");
+		this.getAllObjectifs(parseInt(id));
 	}
 
-	
+	getAllObjectifs(id: number) {
+		this.objectifService.getObjectifsList(id).subscribe(data => {
+			this.objectifs = data,
+				console.log("Objectif List  : ", this.objectifs);
+		});
+	}
+
+
 	change(objectif: Objectif) {
 		let flag = false;
 		if (this.tempList.length == 0) {
@@ -44,23 +51,20 @@ export class CollaborateurComponent implements OnInit  {
 		}
 	}
 
-	onSubmit() {
-		this.submitted = true;
-	}
-
 	autoEvaluate() {
 		console.log("in auto evaluate method ");
 		for (let i = 0; i < this.tempList.length; i++) {
 			console.log("saving ...");
 			this.objectifService.saveObjectif(this.tempList[i]).subscribe();
+			console.log("saved !");
 		}
 	}
 
-	getAllObjectifs() {
-		this.objectifService.getObjectifsList().subscribe(data => {
-			this.objectifs = data,
-				console.log("Objectif List  : ", this.objectifs);
-		});
+
+	onSubmit() {
+		this.submitted = true;
 	}
+
+
 
 }

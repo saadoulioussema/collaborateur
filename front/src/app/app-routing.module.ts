@@ -1,5 +1,4 @@
-import { MyPageComponent } from './views/pages/my-page/my-page.component';
-
+import { ManagerComponent } from './views/pages/manager/manager.component';
 
 // Angular
 import {NgModule} from '@angular/core';
@@ -7,10 +6,11 @@ import {RouterModule, Routes} from '@angular/router';
 // Components
 import {BaseComponent} from './views/theme/base/base.component';
 import {ErrorPageComponent} from './views/theme/content/error-page/error-page.component';
+import { MyPageComponent } from './views/pages/my-page/my-page.component';
+import { CollaborateurComponent } from './views/pages/collaborateur/collaborateur.component';
 // Auth
 import {AuthGuardService} from './services/auth-guard.service';
 
-import { CollaborateurComponent } from './views/pages/collaborateur/collaborateur.component';
 
 
 const routes: Routes = [
@@ -29,7 +29,10 @@ const routes: Routes = [
 				path: 'my-page', component: MyPageComponent,
 			},
 			{
-				path: 'collaborateur', component: CollaborateurComponent,
+				path: 'evaluate', component: ManagerComponent,
+			},
+			{
+				path: 'autoEvaluate', component: CollaborateurComponent,
 			},
 			
 			{

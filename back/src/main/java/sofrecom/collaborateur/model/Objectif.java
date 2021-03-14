@@ -28,17 +28,14 @@ public class Objectif {
 	@Column(nullable = true)
 	private String autoEvaluation;
 	
-	
-	
-	
 	@ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "id")
 	private DAOUser user;
 	
 	
 	@ManyToOne
-    @JoinColumn(name = "idCampagne", referencedColumnName = "idCampagne")
-	private Campagne campagne;
+    @JoinColumn(name = "idCompagne", referencedColumnName = "idCompagne")
+	private Compagne compagne;
 	
 	
 	public Objectif() {
@@ -95,12 +92,12 @@ public class Objectif {
 		this.user = user;
 	}
 
-	public Campagne getCampagne() {
-		return campagne;
+	public Compagne getCompagne() {
+		return compagne;
 	}
 
-	public void setCampagne(Campagne campagne) {
-		this.campagne = campagne;
+	public void setCompagne(Compagne compagne) {
+		this.compagne = compagne;
 	}
 
 	@Override

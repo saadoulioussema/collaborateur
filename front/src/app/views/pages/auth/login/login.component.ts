@@ -94,13 +94,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 */
 	initLoginForm() {
 		//  message to show whe the form is initiated 
-		// if (!this.authNoticeService.onNoticeChanged$.getValue()) {
-		// 	const initialNotice = `Use account
-		// 	<strong>${DEMO_PARAMS.EMAIL}</strong> and password
-		// 	<strong>${DEMO_PARAMS.PASSWORD}</strong> to continue for now :p `;
-		// 	this.authNoticeService.setNotice(initialNotice, 'info');
-		// 	this.authNoticeService.onNoticeChanged$.getValue().message=null;
-		// }
+
+		this.authNoticeService.setNotice(null, null);
 
 		this.loginForm = this.fb.group({
 			email: ['', Validators.compose([
@@ -142,11 +137,17 @@ export class LoginComponent implements OnInit, OnDestroy {
 				if (res) {
 					this.loading = false;
 					this.cdr.markForCheck(); // Dont know why must see ! 
-					console.log("recieved token : ",res.token);
-					localStorage.setItem("jwt", res.token); //LocalStorage
+					// console.log("recieved token : ",res.token);
+					//LocalStorage
+					localStorage.setItem("jwt", res.token); 
 					localStorage.setItem("fullname",user.fullname);
+					localStorage.setItem("managerId",user.managerId);
+					localStorage.setItem("Id",user.id);
 					// this.router.navigateByUrl(this.returnUrl); // Main page
-					this.router.navigateByUrl("/dashboard"); // after checking user role ! ( not done yet !)
+					if (user.fonctionId==2)
+					this.router.navigateByUrl("/evaluate"); 
+					else 
+					this.router.navigateByUrl("/autoEvaluate"); 
 					}
 				},(errmess) => {
 					this.errMess = <any>errmess;

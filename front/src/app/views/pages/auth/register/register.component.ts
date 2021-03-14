@@ -105,10 +105,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 				Validators.maxLength(100)
 			])
 			],
-			agree: [false, Validators.compose([Validators.required])]
-		}, {
-			validator: ConfirmPasswordValidator.MatchPassword
-		});
+			agree: [false, Validators.compose([Validators.required])],
+			matricule:'',
+			dateIntegration:'',
+
+		}, {validator: ConfirmPasswordValidator.MatchPassword});
 	}
 
 	/**
@@ -132,10 +133,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			this.authNoticeService.setNotice('You must agree the terms and condition','danger');
 			return;
 		}
+
+		// Saving User from controls values 
 		this.user.fullname = controls.fullname.value;
 		this.user.email = controls.email.value.toLowerCase();
 		this.user.username = controls.username.value;
 		this.user.password = controls.password.value;
+		this.user.matricule = controls.matricule.value;
+		this.user.dateIntegration = controls.dateIntegration.value;
+		// Checking User in database
 		this.auth.findUser(this.user.email,this.user.username).subscribe(user => {
 			if (user.email) {
 				this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.EMAILEXIST'),'danger');

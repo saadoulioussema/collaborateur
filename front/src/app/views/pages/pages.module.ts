@@ -1,3 +1,7 @@
+import { AuthNoticeComponent } from './auth/auth-notice/auth-notice.component';
+import { AuthModule } from './auth/auth.module';
+
+import { MatInputModule } from '@angular/material';
 
 // Angular
 import { NgModule } from '@angular/core';
@@ -14,12 +18,14 @@ import { UserManagementModule } from './user-management/user-management.module';
 import { MyPageComponent } from './my-page/my-page.component';
 import { CollaborateurComponent } from './collaborateur/collaborateur.component';
 import { ObjectifComponent } from './objectif/objectif.component';
-import { TestComponent } from './test/test.component';
 import { ObjectifService } from '../../services/objectif.service';
 import { DirectionService } from './../../services/direction.service';
+import { ManagerComponent } from './manager/manager.component';
+import { MatSelectModule } from '@angular/material';
+
 
 @NgModule({
-	declarations: [MyPageComponent, CollaborateurComponent, ObjectifComponent, TestComponent],
+	declarations: [MyPageComponent, CollaborateurComponent, ObjectifComponent, ManagerComponent],
 	exports: [],
 	imports: [
 		CommonModule,
@@ -30,6 +36,8 @@ import { DirectionService } from './../../services/direction.service';
 		MailModule,
 		ECommerceModule,
 		UserManagementModule,
+		MatSelectModule,
+		MatInputModule,
 	],
 	providers: [ObjectifService,DirectionService]
 })

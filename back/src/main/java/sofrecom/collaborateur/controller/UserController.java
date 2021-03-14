@@ -21,13 +21,31 @@ public class UserController {
 		DTOUser newuser = new DTOUser();
 		DAOUser user = userService.getUserByUsername(username);
 		DAOUser user2 = userService.getUserByEmail(email);
+	
 		if (user != null) {
+			if ( user.getManager()!= null) {
+				newuser.setManagerId(user.getManager().getId());
+			}
+			else {
+				newuser.setManagerId(user.getId());
+			}
+			newuser.setId(user.getId());
 			newuser.setFullname(user.getFullnamee());
 			newuser.setUsername(user.getUsername());
+			newuser.setFonctionId(user.getFonction().getId());
 		}
+
 		if (user2 != null) {
+			if ( user2.getManager()!= null) {
+				newuser.setManagerId(user2.getManager().getId());
+			}
+			else {
+				newuser.setManagerId(user2.getId());
+			}
+			newuser.setId(user2.getId());
 			newuser.setFullname(user2.getFullnamee());
 			newuser.setEmail(user2.getEmail());
+			newuser.setFonctionId(user2.getFonction().getId());
 		}
 		return newuser;
 	}

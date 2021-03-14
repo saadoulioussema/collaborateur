@@ -1,3 +1,4 @@
+
 // Angular
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
@@ -53,6 +54,11 @@ import { AuthService } from './services/authentication.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { InterceptService } from './services/intercept.service';
 
+//Services
+import { ObjectifService } from './services/objectif.service';
+import { EntretienService } from './services/entretien.service';
+
+
 // CRUD
 import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from './core/_base/crud';
 // Config
@@ -63,8 +69,8 @@ import * as typescript from 'highlight.js/lib/languages/typescript';
 import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
-import { ObjectifService } from './services/objectif.service';
-import { DirectionComponent } from './services/direction/direction.component';
+
+
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -93,7 +99,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 }
 
 @NgModule({
-	declarations: [AppComponent, DirectionComponent],
+	declarations: [AppComponent],
 	imports: [
 		BrowserAnimationsModule,
 		BrowserModule,
@@ -155,6 +161,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		TypesUtilsService,
 		LayoutUtilsService,
 		ObjectifService,
+		EntretienService,
 	],
 	bootstrap: [AppComponent]
 })

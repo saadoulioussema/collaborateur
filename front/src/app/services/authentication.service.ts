@@ -52,6 +52,8 @@ export class AuthService {
   logout() {
 		localStorage.removeItem('jwt');
 		localStorage.removeItem('fullname');
+    localStorage.removeItem('managerId');
+    localStorage.removeItem('Id');
 		this.router.navigateByUrl("/auth");
   }
   

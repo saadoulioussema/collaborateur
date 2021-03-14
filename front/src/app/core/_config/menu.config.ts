@@ -1,3 +1,4 @@
+
 export class MenuConfig {
 	public defaults: any = {
 		header: {
@@ -354,16 +355,16 @@ export class MenuConfig {
 							title: 'Wizard',
 							bullet: 'dot',
 							icon: 'flaticon2-mail-1',
-							// submenu: [
-							// 	{
-							// 		title: 'Wizard 1',
-							// 		page: '/wizard/wizard-1'
-							// 	},
-							// 	{
-							// 		title: 'Wizard 2',
-							// 		page: '/wizard/wizard-2'
-							// 	},
-							// ]
+							submenu: [
+								// {
+								// 	title: 'Wizard 1',
+								// 	page: '/wizard/wizard-1'
+								// },
+								// {
+								// 	title: 'Wizard 2',
+								// 	page: '/wizard/wizard-2'
+								// },
+							]
 						},
 					]
 				},
@@ -645,13 +646,20 @@ export class MenuConfig {
 					]
 				},
 				{section: 'Applications'},
-				{
-					title: 'Collaborateur',
-					root: true,
-					bullet: 'dot',
-					icon: 'flaticon2-user-outline-symbol',
-					page: '/collaborateur',
-				},
+				// {
+				// 	title: 'Manager',
+				// 	root: true,
+				// 	bullet: 'dot',
+				// 	icon: 'flaticon2-user-outline-symbol',
+				// 	page: '/manager',
+				// },
+				// {
+				// 	title: 'Collaborateur',
+				// 	root: true,
+				// 	bullet: 'dot',
+				// 	icon: 'flaticon2-user-outline-symbol',
+				// 	page: '/collaborateur',
+				// },
 				{
 					title: 'eCommerce',
 					bullet: 'dot',
@@ -686,6 +694,17 @@ export class MenuConfig {
 					]
 				},
 				{section: 'Custom'},
+				// {
+				// 	title: 'Wizard',
+				// 	bullet: 'dot',
+				// 	icon: 'flaticon2-mail-1',
+				// 	submenu: [
+				// 		{
+				// 			title: 'Wizard 3',
+				// 			page: '/wizard/wizard-3'
+				// 		},
+				// 	]
+				// },
 				{
 					title: 'Error Pages',
 					root: true,

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.*;
 
 
-
 @Entity
 @Table(name = "user")
 public class DAOUser {
@@ -24,15 +23,17 @@ public class DAOUser {
 	@Column(nullable = false)
 	private String username;
 	@Column
-//	@JsonIgnore
 	private String password;
 	@Column(nullable = true)
-	private String matirucule;
+	private String matricule;
 	@Column(nullable = true)
-	private Date dateIntegration;
-
 	
-//	private DAOUser manager;
+	@Temporal(TemporalType.DATE)
+	private Date dateIntegration;
+	
+
+	@OneToOne
+	private DAOUser manager;
 	
 	@OneToMany(mappedBy="user")
 	private List<Objectif> ojectifs;
@@ -86,11 +87,11 @@ public class DAOUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getMatirucule() {
-		return matirucule;
+	public String getMatricule() {
+		return matricule;
 	}
-	public void setMatirucule(String matirucule) {
-		this.matirucule = matirucule;
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
 	public Date getDateIntegration() {
 		return dateIntegration;
@@ -103,27 +104,40 @@ public class DAOUser {
 	public String getFullname() {
 		return fullname;
 	}
+	
+	public DAOUser getManager() {
+		return manager;
+	}
+
+
+	public void setManager(DAOUser manager) {
+		this.manager = manager;
+	}
+	
+	
+
+	public Fonction getFonction() {
+		return fonction;
+	}
+
+	public void setFonction(Fonction fonction) {
+		this.fonction = fonction;
+	}
+
+	public Direction getDirection() {
+		return direction;
+	}
+
+	public void setDirection(Direction direction) {
+		this.direction = direction;
+	}
 
 	@Override
 	public String toString() {
 		return "DAOUser [id=" + id + ", fullname=" + fullname + ", email=" + email + ", username=" + username
-				+ ", password=" + password + ", matirucule=" + matirucule + ", dateIntegration=" + dateIntegration
-				+ ", ojectifs=" + ojectifs + ", entretiens=" + entretiens + ", fonction=" + fonction + ", direction="
-				+ direction + "]";
+				+ ", password=" + password + ", matricule=" + matricule + ", dateIntegration=" + dateIntegration
+				+ ", manager=" + manager + ", ojectifs=" + ojectifs + ", entretiens=" + entretiens + ", fonction="
+				+ fonction + ", direction=" + direction + "]";
 	}
-	
-
-//	public DAOUser getManager() {
-//		return manager;
-//	}
-//
-//
-//	public void setManager(DAOUser manager) {
-//		this.manager = manager;
-//	}
-
-
-	
-
 	
 }
