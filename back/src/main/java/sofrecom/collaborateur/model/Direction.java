@@ -19,8 +19,9 @@ public class Direction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(nullable = true)
-	private String test;
+	@Column
+	private String libelle;
+
 	
 	@OneToMany(mappedBy="direction")
 	private List<DAOUser> users;
@@ -33,20 +34,17 @@ public class Direction {
 		this.id = id;
 	}
 
-	public String getTest() {
-		return test;
+	public String getLibelle() {
+		return libelle;
 	}
 
-	public void setTest(String test) {
-		this.test = test;
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
 	}
 
 	@Override
 	public String toString() {
-		return "Direction [id=" + id + ", test=" + test + ", users=" + users + "]";
+		return "Direction [id=" + id + ", libelle=" + libelle + ", users=" + users + "]";
 	}
-	
-	
-	
 
 }

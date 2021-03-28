@@ -1,3 +1,4 @@
+import { User } from './../shared/user';
 import { Entretien } from './../shared/entretien';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -19,14 +20,14 @@ export class EntretienService {
     return this.http.get<any[]>(this.baseUrl+uri);
   }
 
+  getEntretienByCollaborateur(collaborateur:User): Observable<any> {
+    let uri = "findEntretienByCollaborateur/"+collaborateur.id;
+    return this.http.get<any[]>(this.baseUrl+uri);
+  }
+
 
   getEntretienList(id:number): Observable<any> {
     let uri = "EIPs/"+id;
     return this.http.get<any[]>(this.baseUrl+uri);
-  }
-
-  saveEntretien(entretien:Entretien): Observable<any> {
-    let uri="evaluateObjectif";
-    return  this.http.put<any[]>(this.baseUrl+uri,entretien);
   }
 }

@@ -33,7 +33,6 @@ export class PageConfigService {
 		if (path) {
 			configPath += '.' + path;
 		}
-
 		// get page config by path
 		return objectPath.get(this.pageConfig, configPath);
 	}

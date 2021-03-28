@@ -8,16 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-	static flag =false;
-
 	constructor() {
-		// let id  = localStorage.getItem("managerId");
-		// if (id!=null){
-		// 	DashboardComponent.flag=true;
-		// }
 	}
 
 	ngOnInit() {
-
 	}
 }

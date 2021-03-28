@@ -11,6 +11,5 @@ public interface IEntretienService {
 	
 	public List<Entretien> getEIPsByManager(long id);
 	public DAOUser getCollaborateurByEntretien(long id) ;
-	public void evaluateObjectif(Entretien entretien);
-
+	public Entretien getEntretienByCollaborateur(long id) ;
 }

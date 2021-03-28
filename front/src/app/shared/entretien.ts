@@ -8,6 +8,7 @@ export class Entretien {
     axes:string;
     points:string;
     projet:string;
+    status:string;
     user:User;
     compagne:Compagne;
 }

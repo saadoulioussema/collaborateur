@@ -9,7 +9,39 @@
 						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step" data-ktwizard-state="current">
 							<div class="kt-wizard-v3__nav-body">
 								<div class="kt-wizard-v3__nav-label">
-									EIP Mon equipe
+									<span>1</span>Evaluation
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>2</span> Fixation des nouveaux objectifs
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>3</span> Evaluation des compétences
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>4</span> Projet Professionel
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>5</span> Clôture
 								</div>
 								<div class="kt-wizard-v3__nav-bar"></div>
 							</div>
@@ -20,10 +52,10 @@
 			</div>
 			<div [hidden]="!message" class="alert alert-{{type}}" role="alert" #alertNotice>
 				<div class="alert-text" [innerHTML]="message"></div>
-			</div>			
+			</div>
 			<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 				<!--begin: Form Wizard Form-->
-				<form class="kt-form" id="kt_form">
+				<div class="kt-form" id="kt_form">
 					<!--begin: Form Wizard Step 1-->
 					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
 						<div class="kt-heading kt-heading--md">EIPs</div>
@@ -72,36 +104,53 @@
 								</div>
 
 								<br><br>
-
 								<div class="row" *ngIf="collaborateur">
 									<div class="col-lg-12 grid-margin stretch-card">
-										<div class="kt-heading kt-heading--md">Informations génerales sur le Collaborateur</div>
+										<div class="kt-heading kt-heading--md">Informations génerales sur le Collaborateur :</div>
 									</div>
-									<div class="col-xl-6">
+
+									<div class="col-xl-3">
 										<div class="form-group">
-											<label>Fullname</label>
-											<input type="text" class="form-control" placeholder={{collaborateur.fullname}}>
+											<label>Fullname :</label>
 										</div>
 									</div>
-									<div class="col-xl-6">
+									<div class="col-xl-3">
 										<div class="form-group">
-											<label>Email</label>
-											<input type="text" class="form-control" placeholder={{collaborateur.email}}>
+											<mark>{{collaborateur.fullname}}</mark>
 										</div>
 									</div>
-									<div class="col-xl-6">
+									<div class="col-xl-3">
 										<div class="form-group">
-											<label>Date Intégration</label>
-											<input type="text" class="form-control" placeholder={{collaborateur.dateIntegration}}>
+											<label>Email : </label>
 										</div>
 									</div>
-									<div class="col-xl-6">
+									<div class="col-xl-3">
 										<div class="form-group">
-											<label>Matricule</label>
-											<input type="text" class="form-control" placeholder={{collaborateur.matricule}}>
+											<mark>{{collaborateur.email}}</mark>
+										</div>
+									</div>
+									<div class="col-xl-3">
+										<div class="form-group">
+											<label>Date Intégration :</label>
+										</div>
+									</div>
+									<div class="col-xl-3">
+										<div class="form-group">
+											<mark>{{collaborateur.dateIntegration}}</mark>
+										</div>
+									</div>
+									<div class="col-xl-3">
+										<div class="form-group">
+											<label>Matricule :</label>
+										</div>
+									</div>
+									<div class="col-xl-3">
+										<div class="form-group">
+											<mark>{{collaborateur.matricule}}</mark>
 										</div>
 									</div>
 								</div>
+								<br><br>
 
 								<div class="row" *ngIf="collaborateur">
 									<div class="col-lg-12 grid-margin stretch-card">
@@ -131,7 +180,7 @@
 																	{{objectif.designation}}
 																</td>
 																<td>
-																	<select (change)="change(objectif)" class="form-control" name={{i}}{{objectif.autoEvaluation}}  [(ngModel)]="objectif.autoEvaluation">
+																	<select (change)="change(objectif)" class="form-control" name="autoEvaluation" [(ngModel)]="objectif.autoEvaluation">
 																		<option value={{objectif.autoEvaluation}} selected>
 																			{{objectif.autoEvaluation}}</option>
 																		<option value="Performance à amelioré">Performance à
@@ -145,7 +194,7 @@
 																	</select>
 																</td>
 																<td>
-																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" value={{objectif.commentaire}} name={{i}} [(ngModel)]="objectif.commentaire">
+																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" name="commentaire" [(ngModel)]="objectif.commentaire">
 																	</textarea>
 																</td>
 															</tr>
@@ -158,7 +207,7 @@
 								</div>
 
 								<br><br>
-								<div *ngIf="entretien">
+								<!-- <div *ngIf="entretien">
 
 									<div class="form-group">
 										<label>Projet professionel</label>
@@ -191,27 +240,51 @@
 									</div>
 
 
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>
 					<!--end: Form Wizard Step 1-->
+					<!--begin: Form Wizard Step 2-->
+					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+						<div *ngIf="collaborateur" class="kt-heading kt-heading--md">Ajouter des nouveaux objectifs pour {{collaborateur.username}} </div>
+						<div class="kt-form__section kt-form__section--first">
+							<div class="kt-wizard-v3__form">
+								<div class="form-group">
+									<div *ngFor="let objectif of newObjectifList ; let i=index">
+										<label>Objectif Designation</label>
+										<textarea (change)="addNew(objectif)" class="form-control" placeholder="designation" name={{i}}{{objectif.designation}} [(ngModel)]="objectif.designation">
+											</textarea>
+										<span class="form-text text-muted">Please enter your new Objectif.</span>
+									</div>
+									<button (click)="showOneLess()" [hidden]="index==1" style="float:right" mat-raised-button>Supprimer
+										<span class="material-icons">clear</span></button>
+									<button (click)="showOneMore()" style="float:right" mat-raised-button color="warn">Ajouter un autre
+										<span class="material-icons">add</span></button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--end: Form Wizard Step 2-->
 
 					<!--begin: Form Actions -->
 					<div class="kt-form__actions">
-						<div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
-							Previous
+						<div data-ktwizard-type="action-prev">
+							<td><button (click)="retour()" class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Retour
+								</button></td>
 						</div>
 						<div (click)="onSubmit()" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-							Submit
+							Valider
 						</div>
 						<div data-ktwizard-type="action-next">
-							<td><button (click)="evaluate(entretien)" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Next
-									Step</button></td>
+							<td><button [disabled]="!collaborateur || objectifFlag && stepNumber==2 || !newObjectifFixed && stepNumber==2" 
+										(click)="suivant()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">
+										Suivant
+								</button></td>
 						</div>
 					</div>
 					<!--end: Form Actions -->
-				</form>
+				</div>
 				<!--end: Form Wizard Form-->
 			</div>
 		</div>

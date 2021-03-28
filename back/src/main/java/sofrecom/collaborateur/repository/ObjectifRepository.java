@@ -11,13 +11,13 @@ import sofrecom.collaborateur.model.Objectif;
 @Repository
 public interface ObjectifRepository extends CrudRepository<Objectif, Long> {
 	
-    @Query("select o from Objectif o join o.compagne c join o.user u where c.idCompagne=:idCompagne and u.id=:idUser")
-    public List<Objectif> findByidCompagne(@Param("idCompagne") String idCompagne,@Param("idUser") long idUser);
+    @Query("select o from Objectif o join o.compagne c join o.user u where u.id=:idUser and c.idCompagne=:idCompagne")
+    public List<Objectif> findByidUserAndidCompagne(@Param("idUser") long idUser,@Param("idCompagne") String idCompagne);
     
     @Query("select o from Objectif o where o.id=:id")
     public Objectif findByIdObjectif(@Param("id")long id);
     
-    @Query("select o from Objectif o join o.user u where u.id=:id")
-    public List<Objectif> findByIdUser(@Param("id")long id);
+    @Query("select o from Objectif o join o.compagne c join o.user u where u.id=:idUser and c.idCompagne=:idCompagne")
+    public List<Objectif> findByIdUser(@Param("idUser")long id,@Param("idCompagne")String key);
 
 }

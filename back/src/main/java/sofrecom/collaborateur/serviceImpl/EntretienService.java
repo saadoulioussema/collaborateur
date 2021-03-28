@@ -1,6 +1,6 @@
 package sofrecom.collaborateur.serviceImpl;
 
-import java.util.Date;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.Entretien;
-import sofrecom.collaborateur.model.Status;
 import sofrecom.collaborateur.repository.EntretienRepository;
 import sofrecom.collaborateur.repository.UserRepository;
 import sofrecom.collaborateur.service.IEntretienService;
@@ -34,11 +33,7 @@ public class EntretienService implements IEntretienService {
 	}
 
 	@Override
-	public void evaluateObjectif(Entretien entretien) {
-		Date date = new Date(System.currentTimeMillis());
-		entretien.setDate(date);
-		entretien.setStatus(Status.EVALUE);
-		EntretienRepo.save(entretien);
+	public Entretien getEntretienByCollaborateur(long id) {
+		return EntretienRepo.findEntretienByUserId(id);
 	}
-
 }

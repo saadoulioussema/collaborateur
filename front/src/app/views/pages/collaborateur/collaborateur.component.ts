@@ -1,6 +1,9 @@
+import { Subscription } from 'rxjs';
+import { AuthNoticeService } from './../../../services/auth-notice.service';
 import { Objectif } from './../../../shared/objectif';
 import { ObjectifService } from './../../../services/objectif.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { AuthNotice } from './../../../services/auth-notice.interface';
 
 
 
@@ -10,14 +13,31 @@ import { Component, OnInit } from '@angular/core';
 	styleUrls: ['./collaborateur.component.scss']
 })
 export class CollaborateurComponent implements OnInit {
+	// Notice Setup
+	@Output() type: any;
+	@Output() message: any = '';
+	private subscriptions: Subscription[] = [];
 	tempList: Array<Objectif> = [];
 	objectifs: Objectif[];
+	objectif:Objectif;
 	submitted = false;
 
-	constructor(private objectifService: ObjectifService) {
+	constructor(private objectifService: ObjectifService,private authNoticeService: AuthNoticeService) {
 	}
 
 	ngOnInit() {
+
+		// Notice Setup
+		this.subscriptions.push(this.authNoticeService.onNoticeChanged$.subscribe(
+			(notice: AuthNotice) => {
+				notice = Object.assign({}, { message: '', type: '' }, notice);
+				this.message = notice.message;
+				this.type = notice.type;
+			}
+		));
+		this.authNoticeService.setNotice("autoEvaluez vos objectifs !", 'info');
+
+
 		let id = localStorage.getItem("Id");
 		this.getAllObjectifs(parseInt(id));
 	}
@@ -31,6 +51,7 @@ export class CollaborateurComponent implements OnInit {
 
 
 	change(objectif: Objectif) {
+		console.log("Commentaire de l objectif changé ====>",objectif.commentaire)
 		let flag = false;
 		if (this.tempList.length == 0) {
 			this.tempList.push(objectif);
@@ -57,6 +78,8 @@ export class CollaborateurComponent implements OnInit {
 			console.log("saving ...");
 			this.objectifService.saveObjectif(this.tempList[i]).subscribe();
 			console.log("saved !");
+			this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
+			setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
 		}
 	}
 

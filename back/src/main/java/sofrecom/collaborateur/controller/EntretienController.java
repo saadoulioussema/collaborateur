@@ -6,14 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.Entretien;
-import sofrecom.collaborateur.model.Objectif;
 import sofrecom.collaborateur.service.IEntretienService;
 
 @RestController
@@ -33,10 +29,9 @@ public class EntretienController {
 		return entretienService.getCollaborateurByEntretien(id);
 	}
 	
-	@PutMapping("evaluateObjectif")
-	@ResponseBody
-	public void evaluateObjectif(@RequestBody Entretien entretien) {
-		entretienService.evaluateObjectif(entretien);
+	@GetMapping("findEntretienByCollaborateur/{idCollaborateur}")
+	public Entretien getEntretienByCollaborateur(@PathVariable("idCollaborateur") long id) {
+		return entretienService.getEntretienByCollaborateur(id);
 	}
 
 }

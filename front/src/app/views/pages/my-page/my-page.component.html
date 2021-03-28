@@ -5,10 +5,43 @@
 				<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
 					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
 						<p> DID YOU SEE US XOXOXOXOXOXOXOXOXO </p>
+
+
+						<div *ngFor="let obj of lista">
+							<textarea (change)="fonction(obj)" placeholder="designation" class="form-control" name="x" [(ngModel)]="obj.designation">
+						</textarea> 
+						</div>
+
+
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>
+										Designation
+									</th>
+									<th>
+										Commentaire
+									</th>
+								</tr>
+							</thead>
+							<tbody  *ngFor="let obj of lista">
+									<tr>
+										<td>
+											{{obj.designation}}
+										</td>
+
+										<td>
+											<textarea (change)="fonction(obj)" class="form-control" placeholder="commentaire" name="commentaire" [(ngModel)]="obj.commentaire">
+										 </textarea>
+										</td>
+									</tr>
+							</tbody>
+						</table>
+
+
 					</kt-portlet-body>
 				</kt-portlet>
 			</div>
 		</div>
 	</div>
 </div>
-

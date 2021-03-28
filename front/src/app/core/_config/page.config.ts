@@ -6,6 +6,12 @@ export class PageConfig {
 				desc: 'Latest updates and statistic charts'
 			},
 		},
+		evaluate: {
+			page: {
+				title: 'EIPs Mon Equipe ',
+				desc: ''
+			},
+		},
 		ngbootstrap: {
 			accordion: {
 				page: {title: 'Accordion', desc: ''}

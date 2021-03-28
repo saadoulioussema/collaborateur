@@ -18,9 +18,12 @@
 				</div>
 				<!--end: Form Wizard Nav -->
 			</div>
+			<div [hidden]="!message" class="alert alert-{{type}}" role="alert" #alertNotice>
+				<div class="alert-text" [innerHTML]="message"></div>
+			</div>
 			<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
-				<!--begin: Form Wizard Form-->
-				<form class="kt-form" id="kt_form">
+				<!--begin: Form Wizard Form--> 
+				<div class="kt-form" id="kt_form">
 					<!--begin: Form Wizard Step 1-->
 					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
 						<div class="kt-heading kt-heading--md">AUTO EVALUATION</div>
@@ -54,7 +57,7 @@
 																	{{objectif.designation}} 
 																</td>
 																<td>
-																	<select (change)="change(objectif)" class="form-control" name={{i}}{{objectif.id}}  [(ngModel)]="objectif.autoEvaluation">
+																	<select (change)="change(objectif)" class="form-control" name="x"  [(ngModel)]="objectif.autoEvaluation">
 																		<option value={{objectif.autoEvaluation}} selected>
 																			{{objectif.autoEvaluation}}</option>
 																		<option value="Performance à amelioré">Performance à
@@ -68,7 +71,7 @@
 																	</select>
 																</td>
 																<td>
-																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" value={{objectif.commentaire}} name={{i}} [(ngModel)]="objectif.commentaire">
+																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" name="y" [(ngModel)]="objectif.commentaire">
 																	 </textarea>
 																</td>
 															</tr>
@@ -113,12 +116,12 @@
 							Submit
 						</div>
 						<div data-ktwizard-type="action-next">
-							<td><button (click)="autoEvaluate()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Next
-									Step</button></td>
+							<td><button (click)="autoEvaluate()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Auto Evaluate
+							</button></td>
 						</div>
 					</div>
 					<!--end: Form Actions -->
-				</form>
+				</div>
 				<!--end: Form Wizard Form-->
 			</div>
 		</div>

@@ -19,13 +19,13 @@ public class Objectif {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(nullable = true)
+	@Column
 	private String designation;
-	@Column(nullable = true)
+	@Column
 	private String evaluation;
-	@Column(nullable = true)
+	@Column
 	private String commentaire;
-	@Column(nullable = true)
+	@Column
 	private String autoEvaluation;
 	
 	@ManyToOne

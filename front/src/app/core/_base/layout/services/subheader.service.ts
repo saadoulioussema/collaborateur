@@ -50,7 +50,6 @@ export class SubheaderService {
 		const initBreadcrumb = () => {
 			// get updated title current page config
 			this.pageConfig = this.pageConfigService.getCurrentPageConfig();
-
 			this.headerMenus = objectPath.get(this.menuConfigService.getMenus(), 'header');
 			this.asideMenus = objectPath.get(this.menuConfigService.getMenus(), 'aside');
 
@@ -147,7 +146,6 @@ export class SubheaderService {
 				breadcrumbs.push(menus);
 			}
 		});
-
 		return breadcrumbs;
 	}
 
