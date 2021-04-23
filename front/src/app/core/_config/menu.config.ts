@@ -279,39 +279,6 @@ export class MenuConfig {
 					root: true,
 					alignment: 'left',
 					toggle: 'click',
-					submenu: [
-						{
-							title: 'eCommerce',
-							bullet: 'dot',
-							icon: 'flaticon-business',
-							permission: 'accessToECommerceModule',
-							submenu: [
-								{
-									title: 'Customers',
-									page: '/ecommerce/customers'
-								},
-								{
-									title: 'Products',
-									page: '/ecommerce/products'
-								},
-							]
-						},
-						{
-							title: 'User Management',
-							bullet: 'dot',
-							icon: 'flaticon-user',
-							submenu: [
-								{
-									title: 'Users',
-									page: '/user-management/users'
-								},
-								{
-									title: 'Roles',
-									page: '/user-management/roles'
-								}
-							]
-						},
-					]
 				},
 						
 				{
@@ -646,65 +613,15 @@ export class MenuConfig {
 					]
 				},
 				{section: 'Applications'},
-				// {
-				// 	title: 'Manager',
-				// 	root: true,
-				// 	bullet: 'dot',
-				// 	icon: 'flaticon2-user-outline-symbol',
-				// 	page: '/manager',
-				// },
-				// {
-				// 	title: 'Collaborateur',
-				// 	root: true,
-				// 	bullet: 'dot',
-				// 	icon: 'flaticon2-user-outline-symbol',
-				// 	page: '/collaborateur',
-				// },
 				{
-					title: 'eCommerce',
-					bullet: 'dot',
-					icon: 'flaticon2-list-2',
-					// root: true,
-					// permission: 'accessToECommerceModule',
-					submenu: [
-						{
-							title: 'Customers',
-							page: '/ecommerce/customers'
-						},
-						{
-							title: 'Products',
-							page: '/ecommerce/products'
-						},
-					]
-				},
-				{
-					title: 'User Management',
+					title: 'Eips Mon Equipe',
 					root: true,
+					// permission: 'accessToEipsModule',
 					bullet: 'dot',
 					icon: 'flaticon2-user-outline-symbol',
-					submenu: [
-						{
-							title: 'Users',
-							page: '/user-management/users'
-						},
-						{
-							title: 'Roles',
-							page: '/user-management/roles'
-						}
-					]
+					page: '/eips',
 				},
 				{section: 'Custom'},
-				// {
-				// 	title: 'Wizard',
-				// 	bullet: 'dot',
-				// 	icon: 'flaticon2-mail-1',
-				// 	submenu: [
-				// 		{
-				// 			title: 'Wizard 3',
-				// 			page: '/wizard/wizard-3'
-				// 		},
-				// 	]
-				// },
 				{
 					title: 'Error Pages',
 					root: true,

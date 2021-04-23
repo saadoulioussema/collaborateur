@@ -4,6 +4,7 @@ package sofrecom.collaborateur.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,12 +23,12 @@ public class ObjectifController {
 	IObjectifService objectifService;
 
 	
-	@GetMapping("collaborateur/{id}/objectifs")
-	public List<Objectif> getObjectifListByidUserAndidCompagne(@PathVariable("id") long idUser) {
-		return 	objectifService.getObjectifListByidUserAndidCompagne(idUser);
+	@GetMapping("entretien/{id}/objectifs")
+	public List<Objectif> getObjectifListByEntretienAndCompagne(@PathVariable("id") long id) {
+		return 	objectifService.getObjectifListByEntretienAndCompagne(id);
 
 	}
-	
+		
 	@PutMapping("autoEvaluateObjectif")
 	@ResponseBody
 	public void autoEvaluateObjectif(@RequestBody Objectif objectif) {
@@ -48,15 +49,8 @@ public class ObjectifController {
 		objectifService.newObjectif(objectif,id);
 	}
 	
-
-	
-	@GetMapping("objectifsForManager/{idCollaborateur}")
-	public List<Objectif> getCollaborateurObjectifsForManager(@PathVariable("idCollaborateur") long id) {
-		return objectifService.getCollaborateurObjectifsForManager(id);
-
+	@DeleteMapping("deleteObjectif/{idCollaborateur}/{designation}")
+	public void deleteObjectif(@PathVariable("idCollaborateur") long id, @PathVariable("designation") String designation) {
+		 objectifService.deleteObjectif(id,designation);
 	}
-
-	
-	
-
 }

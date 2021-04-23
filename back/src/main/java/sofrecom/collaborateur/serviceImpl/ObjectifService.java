@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import javassist.tools.rmi.ObjectNotFoundException;
 import sofrecom.collaborateur.model.Compagne;
-import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.Entretien;
 import sofrecom.collaborateur.model.Objectif;
 import sofrecom.collaborateur.model.Status;
@@ -23,16 +22,16 @@ import sofrecom.collaborateur.service.IObjectifService;
 public class ObjectifService implements IObjectifService {
 
 	@Autowired
-	ObjectifRepository ObjectifRepo;
+	ObjectifRepository objectifRepo;
 
 	@Autowired
-	UserRepository UserRepo;
+	UserRepository userRepo;
 
 	@Autowired
-	CompagneRepository CompagneRepo;
+	CompagneRepository compagneRepo;
 	
 	@Autowired
-	EntretienRepository EntretienRepo;
+	EntretienRepository entretienRepo;
 
 	List<String> semestre = Arrays.asList("01", "02", "03", "04", "05", "06");
 	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -41,84 +40,81 @@ public class ObjectifService implements IObjectifService {
 	String month = formatter.format(date).substring(5, 7);
 
 	@Override
-	public List<Objectif> getObjectifListByidUserAndidCompagne(long idUser) {
+	public List<Objectif> getObjectifListByEntretienAndCompagne(long id) {
+		Entretien entretien  = entretienRepo.findById(id).get();
 		int yearConverted = Integer.parseInt(year);
 		if (semestre.contains(month)) {
 			String correctYear = String.valueOf(yearConverted - 1);
 			String key = "S2" + correctYear;
-			return (List<Objectif>) ObjectifRepo.findByidUserAndidCompagne(idUser,key);
+		    Compagne compagne=compagneRepo.findByIdCompagne(key);
+			return (List<Objectif>) objectifRepo.findByEntretienAndCompagne(entretien,compagne);
 
 		} else {
 			String key = "S1" + year;
-			return (List<Objectif>) ObjectifRepo.findByidUserAndidCompagne(idUser,key);
+			Compagne compagne=compagneRepo.findByIdCompagne(key);
+			return (List<Objectif>) objectifRepo.findByEntretienAndCompagne(entretien,compagne);
 		}
 	}
-
+	
 	@Override
 	public void autoEvaluateObjectif(Objectif objectif) {
-		Objectif obj = ObjectifRepo.findByIdObjectif(objectif.getId());
+		Objectif obj = objectifRepo.findById(objectif.getId()).get();
 		objectif.setCompagne(obj.getCompagne());
-		objectif.setUser(obj.getUser());
 		
-		Entretien entretien = EntretienRepo.findEntretienByUserId(obj.getUser().getId());
+		Entretien entretien = entretienRepo.findById(obj.getEntretien().getId()).get();
 		entretien.setStatus(Status.AUTO_EVALUATION);
-		EntretienRepo.save(entretien);
-		ObjectifRepo.save(objectif);
+		entretienRepo.save(entretien);
+		objectifRepo.save(objectif);
 	}
 	
 	@Override
 	public void evaluateObjectif(Objectif objectif) {
-		Objectif obj = ObjectifRepo.findByIdObjectif(objectif.getId());
+		Objectif obj = objectifRepo.findById(objectif.getId()).get();
 		objectif.setCompagne(obj.getCompagne());
-		objectif.setUser(obj.getUser());
-		Entretien entretien = EntretienRepo.findEntretienByUserId(obj.getUser().getId());
+		Entretien entretien = entretienRepo.findById(obj.getEntretien().getId()).get();
 		entretien.setStatus(Status.EVALUATION);
-		EntretienRepo.save(entretien);
-		ObjectifRepo.save(objectif);
+		entretienRepo.save(entretien);
+		objectifRepo.save(objectif);
 	}
 
-	@Override
-	public List<Objectif> getCollaborateurObjectifsForManager(long id) {
-		int yearConverted = Integer.parseInt(year);
-		if (semestre.contains(month)) {
-			String correctYear = String.valueOf(yearConverted - 1);
-			String key = "S2" + correctYear;
-			return (List<Objectif>) ObjectifRepo.findByIdUser(id, key);
 
-		} else {
-			String key = "S1" + year;
-			return (List<Objectif>) ObjectifRepo.findByIdUser(id, key);
-
-		}
-
-	}
 
 	@Override
 	public void newObjectif(Objectif objectif, long id) throws ObjectNotFoundException {
-
-		DAOUser user = UserRepo.findById(id).get();
-		objectif.setUser(user);
-
 		if (semestre.contains(month)) {
 			String key = "S1" + year;
-			Compagne compagne = CompagneRepo.findByIdCompagne(key);
+			Compagne compagne = compagneRepo.findByIdCompagne(key);
 			if (compagne != null)
 				objectif.setCompagne(compagne);
 			else
 				throw new ObjectNotFoundException("Compagne" + key + "not found");
 		} else {
 			String key = "S2" + year;
-			Compagne compagne = CompagneRepo.findByIdCompagne(key);
+			Compagne compagne = compagneRepo.findByIdCompagne(key);
 			if (compagne != null)
 				objectif.setCompagne(compagne);
 			else
 				throw new ObjectNotFoundException("Compagne" + key + "not found");
 		}
-		Entretien entretien = EntretienRepo.findEntretienByUserId(id);
+		Entretien entretien = entretienRepo.findEntretienByUserId(id);
 		entretien.setStatus(Status.FIXATION_OBJECTIFS);
-		EntretienRepo.save(entretien);
-		ObjectifRepo.save(objectif);
+		entretienRepo.save(entretien);
+		objectifRepo.save(objectif);
 	}
 
+	@Override
+	public void deleteObjectif(long id,String designation) {
+		
+		if (semestre.contains(month)) {
+			String key = "S1" + year;
+			objectifRepo.deleteByEntretienIdAndCompagneIdCompagneAndDesignation(id,key,designation);
+			
 
+		} else {
+			String key = "S2" + year;
+			System.out.println(id+designation+key);
+			objectifRepo.deleteByEntretienIdAndCompagneIdCompagneAndDesignation(id,key,designation);
+			
+		}
+	}
 }

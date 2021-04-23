@@ -9,8 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
-
 @Entity
 @Table(name = "objectif")
 public class Objectif {
@@ -27,15 +25,15 @@ public class Objectif {
 	private String commentaire;
 	@Column
 	private String autoEvaluation;
-	
-	@ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "id")
-	private DAOUser user;
-	
-	
+		
 	@ManyToOne
     @JoinColumn(name = "idCompagne", referencedColumnName = "idCompagne")
 	private Compagne compagne;
+	
+
+	@ManyToOne
+    @JoinColumn(name = "idEntretien", referencedColumnName = "id")
+	private Entretien entretien;
 	
 	
 	public Objectif() {
@@ -82,16 +80,6 @@ public class Objectif {
 		this.autoEvaluation = autoEvaluation;
 	}
 	
-	
-	
-	public DAOUser getUser() {
-		return user;
-	}
-
-	public void setUser(DAOUser user) {
-		this.user = user;
-	}
-
 	public Compagne getCompagne() {
 		return compagne;
 	}
@@ -100,11 +88,18 @@ public class Objectif {
 		this.compagne = compagne;
 	}
 
+	public Entretien getEntretien() {
+		return entretien;
+	}
+
+	public void setEntretien(Entretien entretien) {
+		this.entretien = entretien;
+	}
+
 	@Override
 	public String toString() {
 		return "Objectif [id=" + id + ", designation=" + designation + ", evaluation=" + evaluation + ", commentaire="
-				+ commentaire + ", autoEvaluation=" + autoEvaluation + "]";
+				+ commentaire + ", autoEvaluation=" + autoEvaluation + ", compagne=" + compagne + ", entretien="
+				+ entretien + "]";
 	}
-	
-	
 }

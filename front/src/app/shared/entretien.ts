@@ -5,10 +5,10 @@ export class Entretien {
     date:Date;
     formations:string;
     certifications:string;
+    status:string;
     axes:string;
     points:string;
     projet:string;
-    status:string;
     user:User;
     compagne:Compagne;
 }

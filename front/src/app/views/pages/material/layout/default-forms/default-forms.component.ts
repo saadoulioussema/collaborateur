@@ -1,10 +1,10 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { MatChipInputEvent } from '@angular/material';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { MatSnackBar } from '@angular/material';
 import { PizzaPartyComponent } from '../../popups-and-modals/snackbar/pizza-party.component';
 
 

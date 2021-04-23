@@ -1,6 +1,18 @@
 @import "sass/pages/wizard/wizard-3";
 
 mark {
-    background-color:  #fcf4bb;
+    background-color: #fcffba;
     color: black;
   }
+::ng-deep .custom-tooltip  {
+  background-color: #fd3a7a;
+  font-size:14px;
+}
+
+.table-hover > tbody > tr:hover {
+  // background-color: #d4d4d4;
+  background-color: #5d78ff;
+}
+
+
+

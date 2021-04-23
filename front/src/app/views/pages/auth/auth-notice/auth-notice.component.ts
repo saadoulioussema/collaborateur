@@ -1,10 +1,11 @@
+import { AuthNotice } from './../../../../core/auth/auth-notice/auth-notice.interface';
 // Angular
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, Output } from '@angular/core';
 // RxJS
 import { Subscription } from 'rxjs';
 // Auth
-import {AuthNoticeService } from '../../../../services/auth-notice.service';
-import { AuthNotice } from '../../../../core/auth';
+import {AuthNoticeService } from '../../../../core/services/auth-notice.service';
+
 
 @Component({
 	selector: 'kt-auth-notice',

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
-import { NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+import {NgbTabChangeEvent, NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';
+
 
 const tabset = {
 		beforeCodeTitle: 'Tabset',
@@ -202,7 +202,7 @@ const preventTabChange = {
 `,
 		tsCode: `
 import {Component} from '@angular/core';
-import {NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';\n
+import { NgbTabChangeEvent, NgbTabsetConfig } from '@ng-bootstrap/ng-bootstrap';\n
 @Component({
     selector: 'ngbd-tabset-preventchange',
     templateUrl: './tabset-preventchange.html'

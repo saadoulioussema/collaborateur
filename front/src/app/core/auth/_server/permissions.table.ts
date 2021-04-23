@@ -2,9 +2,9 @@ export class PermissionsTable {
 	public static permissions: any = [
         {
             id: 1,
-            name: 'accessToECommerceModule',
+            name: 'accessToEipsModule',
             level: 1,
-            title: 'eCommerce module'
+            title: 'Eips module'
         },
         {
             id: 2,

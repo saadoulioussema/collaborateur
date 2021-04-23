@@ -1,7 +1,9 @@
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressBarModule, MatProgressSpinnerModule } from '@angular/material';
+
 
 // Module
 import { CoreModule } from '../../../../../core/core.module';

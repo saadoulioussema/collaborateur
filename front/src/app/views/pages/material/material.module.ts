@@ -1,3 +1,7 @@
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatInputModule } from '@angular/material/input';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -9,47 +13,11 @@ import { PartialsModule } from '../../partials/partials.module';
 import { CoreModule } from '../../../core/core.module';
 import { MaterialPreviewModule } from '../../partials/content/general/material-preview/material-preview.module';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatRippleModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconRegistry } from '@angular/material/icon';
-import {
-	MatAutocompleteModule,
-	MatNativeDateModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatRadioModule,
-	MatButtonModule,
-	MatCardModule,
-	MatChipsModule,
-	MatSelectModule,
-	MatProgressBarModule,
-	MatProgressSpinnerModule,
-	MatIconModule,
-	MatSliderModule,
-	MatPaginatorModule,
-	MatSortModule,
-	MatSidenavModule,
-	MatSnackBarModule,
-	MatStepperModule,
-	MatToolbarModule,
-	MatDividerModule,
-	MatTabsModule,
-	MatTableModule,
-	MatTooltipModule,
-	MatListModule,
-	MatGridListModule,
-	MatButtonToggleModule,
-	MatBottomSheetModule,
-	MatExpansionModule,
-	MatMenuModule,
-	MatTreeModule,
-	MAT_BOTTOM_SHEET_DATA,
-	MatBottomSheetRef,
-	MAT_DATE_LOCALE,
-	MAT_DATE_FORMATS,
-
-} from '@angular/material';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 
 
 // Form controls
@@ -95,6 +63,30 @@ import { PaginatorComponent } from './data-table/paginator/paginator.component';
 import { SortHeaderComponent } from './data-table/sort-header/sort-header.component';
 import { MaterialTableComponent } from './data-table/material-table/material-table.component';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatBottomSheetModule, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 
 const routes: Routes = [
 	{

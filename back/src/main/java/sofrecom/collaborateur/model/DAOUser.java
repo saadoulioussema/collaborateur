@@ -1,13 +1,10 @@
 package sofrecom.collaborateur.model;
-
-
-
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user")
@@ -37,9 +34,7 @@ public class DAOUser {
 	private DAOUser manager;
 	
 	@OneToMany(mappedBy="user")
-	private List<Objectif> ojectifs;
-	
-	@OneToMany(mappedBy="user")
+	@JsonIgnore
 	private List<Entretien> entretiens;
 	
 	@ManyToOne
@@ -50,7 +45,10 @@ public class DAOUser {
     @JoinColumn(name = "idDirection", referencedColumnName = "id")
 	private Direction direction;
 	
-
+	@OneToMany(mappedBy="user")
+	private List<Evaluation> evaluations;
+	
+	
 	public DAOUser() {
 		super();
 	}
@@ -133,12 +131,27 @@ public class DAOUser {
 		this.direction = direction;
 	}
 
+	public List<Entretien> getEntretiens() {
+		return entretiens;
+	}
+
+	public void setEntretiens(List<Entretien> entretiens) {
+		this.entretiens = entretiens;
+	}
+
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
+	}
+
 	@Override
 	public String toString() {
 		return "DAOUser [id=" + id + ", fullname=" + fullname + ", email=" + email + ", username=" + username
 				+ ", password=" + password + ", matricule=" + matricule + ", dateIntegration=" + dateIntegration
-				+ ", manager=" + manager + ", ojectifs=" + ojectifs + ", entretiens=" + entretiens + ", fonction="
-				+ fonction + ", direction=" + direction + "]";
+				+ ", manager=" + manager + ", entretiens=" + entretiens + ", fonction=" + fonction + ", direction="
+				+ direction + ", evaluations=" + evaluations + "]";
 	}
-	
 }

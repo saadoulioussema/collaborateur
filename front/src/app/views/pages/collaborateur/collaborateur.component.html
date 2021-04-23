@@ -9,7 +9,7 @@
 						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step" data-ktwizard-state="current">
 							<div class="kt-wizard-v3__nav-body">
 								<div class="kt-wizard-v3__nav-label">
-									 Auto évaluation
+									 Auto Evaluation
 								</div>
 								<div class="kt-wizard-v3__nav-bar"></div>
 							</div>
@@ -26,7 +26,7 @@
 				<div class="kt-form" id="kt_form">
 					<!--begin: Form Wizard Step 1-->
 					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
-						<div class="kt-heading kt-heading--md">AUTO EVALUATION</div>
+						<!-- <div class="kt-heading kt-heading--md">AUTO EVALUATION</div> -->
 						<div class="kt-form__section kt-form__section--first">
 							<div class="kt-wizard-v3__form">
 								<div class="row">
@@ -35,9 +35,9 @@
 											<div class="card-body">
 												<h4 class="card-title text-center">Evaluation des objectifs individuel
 												</h4>
-												<br><br>
+												<br><br>												  
 												<div class="table-responsive">
-													<table id="mytable" class="table table-striped">
+													<table mat-table class="table table-striped table-hover">
 														<thead>
 															<tr>
 																<th>
@@ -77,47 +77,26 @@
 															</tr>
 														</tbody>
 													</table>
+													<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
 								<br><br>
-								<!-- <div class="form-group">
-									<label>Projet Professionel</label>
-									<input type="text" class="form-control" name="projet" [(ngModel)]="model.projetProfessionel" placeholder="Projet Professionel" value="projetProfessionel">
-									<span class="form-text text-muted">Please enter your Projet.</span>
-								</div>
-								<div class="form-group">
-									<label>Demande de formation </label>
-									<input type="text" class="form-control" name="formation" [(ngModel)]="model.formation" placeholder="Demande de formation" value="formation">
-									<span class="form-text text-muted">Please enter your formation.</span>
-								</div>
-								<div class="form-group">
-									<label>Demande de certification </label>
-									<input type="text" class="form-control" name="certification" [(ngModel)]="model.certification" placeholder="certification" value="certification">
-									<span class="form-text text-muted">Please enter your certification.</span>
-								</div> -->
 							</div>
 						</div>
 					</div>
 					<!--end: Form Wizard Step 1-->
-
-				
-
-
 					<!--begin: Form Actions -->
 					<div class="kt-form__actions">
 						<div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
 							Previous
 						</div>
-						<div (click)="onSubmit()" class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
-							Submit
-						</div>
 						<div data-ktwizard-type="action-next">
-							<td><button (click)="autoEvaluate()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Auto Evaluate
-							</button></td>
+							<button (click)="autoEvaluate()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">
+							Auto Evaluate
+							</button>
 						</div>
 					</div>
 					<!--end: Form Actions -->

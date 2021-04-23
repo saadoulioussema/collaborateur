@@ -41,12 +41,6 @@ public class JwtAuthenticationController {
 	private JwtUserDetailsService userDetailsService;
 
 	
-	//================================================================================
-    // Authentication and Register 
-    //================================================================================
-	
-	
-	
 	@PostMapping("/auth/register")
 	public ResponseEntity<?> saveUser(@RequestBody DTOUser user) throws Exception {
 		try {
@@ -82,12 +76,5 @@ public class JwtAuthenticationController {
 		} catch (BadCredentialsException e) {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
-	}
-	
-	
-	
-	//================================================================================
-    // User Crud
-    //================================================================================
-	
+	}	
 }

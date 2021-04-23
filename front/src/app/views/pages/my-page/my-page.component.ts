@@ -1,4 +1,4 @@
-import { ObjectifService } from './../../../services/objectif.service';
+import { ObjectifService } from '../../../core/services/objectif.service';
 import { Objectif } from './../../../shared/objectif';
 import { Component, OnInit } from '@angular/core';
 
@@ -27,7 +27,7 @@ export class MyPageComponent implements OnInit {
   }
 
   getAllObjectifs(id: number) {
-		this.objectifService.getObjectifsList(id).subscribe(data => {
+		this.objectifService.getObjectifList(id).subscribe(data => {
 			this.lista = data,
 				console.log("Lista : ", this.lista);
 		});

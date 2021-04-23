@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 // Angular Material
-import { MatButtonModule, MatProgressBarModule, MatTabsModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatTabsModule } from '@angular/material/tabs';
 // NgBootstrap
 import { NgbProgressbarModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 // Translation
 import { TranslateModule } from '@ngx-translate/core';
 // Loading bar
 import { LoadingBarModule } from '@ngx-loading-bar/core';
-// NGRX
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 // Ngx DatePicker
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 // Perfect Scrollbar
@@ -35,7 +35,6 @@ import { PagesModule } from '../pages/pages.module';
 import { HtmlClassService } from './html-class.service';
 import { HeaderMobileComponent } from './header/header-mobile/header-mobile.component';
 import { ErrorPageComponent } from './content/error-page/error-page.component';
-import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from '../../core/auth';
 import { NgxPermissionsModule } from 'ngx-permissions';
 
 @NgModule({
@@ -92,9 +91,6 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 		CommonModule,
 		RouterModule,
 		NgxPermissionsModule.forChild(),
-		StoreModule.forFeature('roles', rolesReducer),
-		StoreModule.forFeature('permissions', permissionsReducer),
-		EffectsModule.forFeature([PermissionEffects, RoleEffects]),
 		PagesModule,
 		PartialsModule,
 		CoreModule,

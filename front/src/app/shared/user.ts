@@ -1,8 +1,9 @@
-
 // import { Address } from './address.model';
 // import { SocialNetworks } from './social-networks.model';
+// import { FonctionTable } from '../core/auth/_server/fonction.table';
 
 export class User {
+
     id: number;
     fullname: string;
     email: string;
@@ -10,6 +11,9 @@ export class User {
     password: string;
     pic: string ="";
     managerId:number;
+    // fonctionId=FonctionTable.fonctions;
+    // permission=PermissionsTable.permissions=[1];
+    // public static fonctions: any = FonctionTable.fonctions;
     fonctionId:number;
     dateIntegration:string;
     matricule:string;

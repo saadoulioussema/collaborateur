@@ -14,6 +14,7 @@ public class UserController {
 
 	@Autowired
 	IUserService userService;
+	
 
 	@GetMapping("findUser/{username}/{email}")
 	public DTOUser getUserByUsername(@PathVariable("username") String username, @PathVariable("email") String email) {
@@ -49,4 +50,10 @@ public class UserController {
 		}
 		return newuser;
 	}
+	
+	@GetMapping("findUser/{id}")
+	public DAOUser getUserById(@PathVariable("id") long idUser) {
+		return 	userService.getUserById(idUser);
+
+	}	
 }

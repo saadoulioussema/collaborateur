@@ -3,14 +3,13 @@ package sofrecom.collaborateur.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import sofrecom.collaborateur.model.Direction;
 import sofrecom.collaborateur.repository.DirectionRepository;
 import sofrecom.collaborateur.service.IDirectionService;
 
-
-@Component
+@Service
 public class DirectionService implements IDirectionService{
 	
 	

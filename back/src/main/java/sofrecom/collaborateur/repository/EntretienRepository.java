@@ -21,4 +21,5 @@ public interface EntretienRepository extends CrudRepository<Entretien, Long> {
     @Query("select e from Entretien e join e.user u where u.id=:id")
 	public Entretien findEntretienByUserId(@Param("id")long id);
     
+    public Entretien findEntretienByUser(DAOUser user);
 }

@@ -1,6 +1,7 @@
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // Angular
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+
 
 @Component({
 	selector: 'kt-fetch-entity-dialog',

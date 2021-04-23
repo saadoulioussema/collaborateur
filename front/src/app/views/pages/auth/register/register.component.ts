@@ -1,3 +1,4 @@
+import { UserService } from './../../../../core/services/user.service';
 // Angular
 import {ChangeDetectorRef,Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
@@ -5,8 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // Translate
 import { TranslateService } from '@ngx-translate/core';
 // Auth
-import { AuthNoticeService} from '../../../../services/auth-notice.service';
-import { AuthService} from '../../../../services/authentication.service';
+import { AuthNoticeService} from '../../../../core/services/auth-notice.service';
+import { AuthService} from '../../../../core/services/authentication.service';
 import { Subject } from 'rxjs';
 import { User } from '../../../../shared/user';
 import { ConfirmPasswordValidator } from './confirm-password.validator';
@@ -41,7 +42,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		private authNoticeService: AuthNoticeService,
 		private translate: TranslateService,
 		private router: Router,
-		private auth: AuthService,
+		private authService: AuthService,
+		private userService: UserService,
 		private fb: FormBuilder,
 		private cdr: ChangeDetectorRef
 	) {
@@ -142,7 +144,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		this.user.matricule = controls.matricule.value;
 		this.user.dateIntegration = controls.dateIntegration.value;
 		// Checking User in database
-		this.auth.findUser(this.user.email,this.user.username).subscribe(user => {
+		this.userService.findUserByEmailAndUsername(this.user.email,this.user.username).subscribe(user => {
 			if (user.email) {
 				this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.EMAILEXIST'),'danger');
 				this.loading = false;
@@ -155,7 +157,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			}
 
 			if (user.username == null && user.email == null){
-				this.auth.register(this.user)
+				this.authService.register(this.user)
 				// must see why ??? 
 				// .pipe(takeUntil(this.unsubscribe),finalize(() => {this.loading = false;this.cdr.markForCheck();}))
 				.subscribe(user => {

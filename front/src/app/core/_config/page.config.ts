@@ -6,9 +6,15 @@ export class PageConfig {
 				desc: 'Latest updates and statistic charts'
 			},
 		},
+		eips: {
+			page: {
+				title: 'Eips Mon Equipe ',
+				desc: ''
+			},
+		},
 		evaluate: {
 			page: {
-				title: 'EIPs Mon Equipe ',
+				title: 'Entretien ',
 				desc: ''
 			},
 		},

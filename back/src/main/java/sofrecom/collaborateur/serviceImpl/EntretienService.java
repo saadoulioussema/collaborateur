@@ -4,7 +4,7 @@ package sofrecom.collaborateur.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.Entretien;
@@ -12,7 +12,7 @@ import sofrecom.collaborateur.repository.EntretienRepository;
 import sofrecom.collaborateur.repository.UserRepository;
 import sofrecom.collaborateur.service.IEntretienService;
 
-@Component
+@Service
 public class EntretienService implements IEntretienService {
 	
 	

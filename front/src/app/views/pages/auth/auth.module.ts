@@ -1,3 +1,7 @@
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 // Angular
 import { ModuleWithProviders, NgModule } from '@angular/core';
@@ -6,12 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 // Material
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+
 // Translate
 import { TranslateModule } from '@ngx-translate/core';
-// NGRX
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
 // CRUD
 import { InterceptService } from '../../../core/_base/crud/';
 // Module components
@@ -21,7 +22,7 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
-import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
+import { AuthService } from '../../../core/auth';
 
 
 const routes: Routes = [
@@ -63,8 +64,6 @@ const routes: Routes = [
 		MatFormFieldModule,
 		MatCheckboxModule,
 		TranslateModule.forChild(),
-		StoreModule.forFeature('auth', authReducer),
-		EffectsModule.forFeature([AuthEffects])
 	],
 	providers: [
 		InterceptService,
@@ -90,7 +89,6 @@ export class AuthModule {
 			ngModule: AuthModule,
 			providers: [
 				AuthService,
-				AuthGuard
 			]
 		};
 	}

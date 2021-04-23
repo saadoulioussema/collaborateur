@@ -1,9 +1,12 @@
-import { Subscription } from 'rxjs';
-import { AuthNoticeService } from './../../../services/auth-notice.service';
+import { UserService } from './../../../core/services/user.service';
+import { EntretienService } from './../../../core/services/entretien.service';
+import { AuthNotice } from './../../../core/auth/auth-notice/auth-notice.interface';
+import { AuthNoticeService } from './../../../core/services/auth-notice.service';
+import { ObjectifService } from './../../../core/services/objectif.service';
 import { Objectif } from './../../../shared/objectif';
-import { ObjectifService } from './../../../services/objectif.service';
+import { Subscription } from 'rxjs';
 import { Component, OnInit, Output } from '@angular/core';
-import { AuthNotice } from './../../../services/auth-notice.interface';
+
 
 
 
@@ -17,12 +20,15 @@ export class CollaborateurComponent implements OnInit {
 	@Output() type: any;
 	@Output() message: any = '';
 	private subscriptions: Subscription[] = [];
-	tempList: Array<Objectif> = [];
+	tempList: Objectif[] = [];
 	objectifs: Objectif[];
 	objectif:Objectif;
-	submitted = false;
 
-	constructor(private objectifService: ObjectifService,private authNoticeService: AuthNoticeService) {
+
+	constructor(private objectifService: ObjectifService,
+				private entretienService: EntretienService,
+				private authNoticeService: AuthNoticeService,
+				private userService: UserService,) {
 	}
 
 	ngOnInit() {
@@ -39,19 +45,18 @@ export class CollaborateurComponent implements OnInit {
 
 
 		let id = localStorage.getItem("Id");
-		this.getAllObjectifs(parseInt(id));
+		this.getCollaborateurObjectifs(parseInt(id));
 	}
 
-	getAllObjectifs(id: number) {
-		this.objectifService.getObjectifsList(id).subscribe(data => {
-			this.objectifs = data,
-				console.log("Objectif List  : ", this.objectifs);
-		});
+	getCollaborateurObjectifs(id: number) {
+		this.userService.findUserById(id).subscribe(user=>
+		this.entretienService.getEntretienByCollaborateur(user).subscribe(entretien=>
+		this.objectifService.getObjectifList(entretien.id).subscribe(data=> this.objectifs = data)
+		));
 	}
 
 
 	change(objectif: Objectif) {
-		console.log("Commentaire de l objectif changé ====>",objectif.commentaire)
 		let flag = false;
 		if (this.tempList.length == 0) {
 			this.tempList.push(objectif);
@@ -59,7 +64,7 @@ export class CollaborateurComponent implements OnInit {
 		else {
 			for (let i = 0; i < this.tempList.length; i++) {
 				if (this.tempList[i] == objectif) {
-					console.log("objectif found ! saving changes on a temp list  list ");
+					console.log("objectif found ! saving changes on a temp list");
 					flag = true;
 					this.tempList[i].autoEvaluation = objectif.autoEvaluation;
 					this.tempList[i].commentaire = objectif.commentaire;
@@ -73,7 +78,6 @@ export class CollaborateurComponent implements OnInit {
 	}
 
 	autoEvaluate() {
-		console.log("in auto evaluate method ");
 		for (let i = 0; i < this.tempList.length; i++) {
 			console.log("saving ...");
 			this.objectifService.saveObjectif(this.tempList[i]).subscribe();
@@ -82,12 +86,4 @@ export class CollaborateurComponent implements OnInit {
 			setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
 		}
 	}
-
-
-	onSubmit() {
-		this.submitted = true;
-	}
-
-
-
 }

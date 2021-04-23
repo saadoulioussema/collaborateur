@@ -1,15 +1,21 @@
 package sofrecom.collaborateur.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -21,6 +27,7 @@ public class Entretien {
 	private long id;
 	@Column	
 	private Date date;
+	@Enumerated(EnumType.STRING)
 	@Column
 	private Status status;
 	
@@ -43,6 +50,10 @@ public class Entretien {
 	@ManyToOne
     @JoinColumn(name = "idCompagne", referencedColumnName = "idCompagne")
 	private Compagne compagne;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="entretien")
+	private List<Objectif> objectifs;
 
 	public Entretien() {
 		super();
@@ -129,11 +140,19 @@ public class Entretien {
 		this.compagne = compagne;
 	}
 
+	public List<Objectif> getObjectifs() {
+		return objectifs;
+	}
+
+	public void setObjectifs(List<Objectif> objectifs) {
+		this.objectifs = objectifs;
+	}
+
 	@Override
 	public String toString() {
 		return "Entretien [id=" + id + ", date=" + date + ", status=" + status + ", projet=" + projet + ", points="
 				+ points + ", axes=" + axes + ", formations=" + formations + ", certifications=" + certifications
-				+ ", user=" + user + ", compagne=" + compagne + "]";
+				+ ", user=" + user + ", compagne=" + compagne + ", objectifs=" + objectifs + "]";
 	}
-	
+
 }

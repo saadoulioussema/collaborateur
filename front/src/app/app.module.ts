@@ -1,14 +1,15 @@
-
 // Angular
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GestureConfig, MatProgressSpinnerModule } from '@angular/material';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+// import { GestureConfig } from '@angular/material';
+
 import { OverlayModule } from '@angular/cdk/overlay';
-// Angular in memory
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
 // Perfect Scroll bar
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 // SVG inline
@@ -19,13 +20,6 @@ import { environment } from '../environments/environment';
 import 'hammerjs';
 // NGX Permissions
 import { NgxPermissionsModule } from 'ngx-permissions';
-// NGRX
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-// State
-import { metaReducers, reducers } from './core/reducers';
 // Copmponents
 import { AppComponent } from './app.component';
 // Modules
@@ -37,7 +31,6 @@ import { PartialsModule } from './views/partials/partials.module';
 // Layout Services
 import {
 	DataTableService,
-	FakeApiService,
 	KtDialogService,
 	LayoutConfigService,
 	LayoutRefService,
@@ -50,13 +43,13 @@ import {
 } from './core/_base/layout';
 // Auth
 import { AuthModule } from './views/pages/auth/auth.module';
-import { AuthService } from './services/authentication.service';
-import { AuthGuardService } from './services/auth-guard.service';
-import { InterceptService } from './services/intercept.service';
+import { AuthService } from './core/services/authentication.service';
+import { AuthGuardService } from './core/services/auth-guard.service';
+import { InterceptService } from './core/services/intercept.service';
 
 //Services
-import { ObjectifService } from './services/objectif.service';
-import { EntretienService } from './services/entretien.service';
+import { ObjectifService } from './core/services/objectif.service';
+import { EntretienService } from './core/services/entretien.service';
 
 
 // CRUD
@@ -64,7 +57,7 @@ import { HttpUtilsService, LayoutUtilsService, TypesUtilsService } from './core/
 // Config
 import { LayoutConfig } from './core/_config/layout.config';
 // Highlight JS
-import { HIGHLIGHT_OPTIONS, HighlightLanguage } from 'ngx-highlightjs';
+import {HighlightLanguage, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import * as typescript from 'highlight.js/lib/languages/typescript';
 import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
@@ -105,18 +98,10 @@ export function hljsLanguages(): HighlightLanguage[] {
 		BrowserModule,
 		AppRoutingModule,
 		HttpClientModule,
-		environment.isMockEnabled ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
-			passThruUnknownUrl: true,
-			dataEncapsulation: false
-		}) : [],
 		NgxPermissionsModule.forRoot(),
 		PartialsModule,
 		CoreModule,
 		OverlayModule,
-		StoreModule.forRoot(reducers, {metaReducers}),
-		EffectsModule.forRoot([]),
-		StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
-		StoreDevtoolsModule.instrument(),
 		AuthModule.forRoot(),
 		TranslateModule.forRoot(),
 		MatProgressSpinnerModule,
@@ -141,7 +126,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		},
 		{
 			provide: HAMMER_GESTURE_CONFIG,
-			useClass: GestureConfig
+			useClass: HammerGestureConfig
 		},
 		{
 			// layout config initializer

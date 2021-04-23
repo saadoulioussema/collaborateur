@@ -48,7 +48,13 @@
 				  "src/assets"
 			  ]
 		  	},
-            "es5BrowserSupport": true
+        "allowedCommonJsDependencies": [
+          "hammerjs" ,
+          "lodash",
+          "chart.js/dist/Chart.min.js",
+          "rxjs/internal/scheduler/animationFrame",
+          "object-path"
+        ]
           },
           "configurations": {
             "production": {

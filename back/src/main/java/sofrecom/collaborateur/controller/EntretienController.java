@@ -33,5 +33,4 @@ public class EntretienController {
 	public Entretien getEntretienByCollaborateur(@PathVariable("idCollaborateur") long id) {
 		return entretienService.getEntretienByCollaborateur(id);
 	}
-
 }

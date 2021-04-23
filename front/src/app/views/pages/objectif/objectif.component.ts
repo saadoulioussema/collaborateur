@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { Objectif } from '../../../shared/objectif';
-import { ObjectifService } from '../../../services/objectif.service';
+import { ObjectifService } from '../../../core/services/objectif.service';
 import { Router } from '@angular/router';
 declare const myTest: any;
 
