@@ -16,11 +16,19 @@ import sofrecom.collaborateur.model.Objectif;
 public interface ObjectifRepository extends CrudRepository<Objectif, Long> {
 	
     	
-    public List<Objectif> findByEntretienAndCompagne(Entretien entretien,Compagne compagne);
+	  public List<Objectif> findByEntretienAndEntretienCompagne(Entretien entretien,Compagne compagne);
+
+//    public List<Objectif> findByEntretienAndCompagne(Entretien entretien,Compagne compagne);
      
-    @Modifying
-    @Transactional
-    public void deleteByEntretienIdAndCompagneIdCompagneAndDesignation(long iduser,String compagne,String designation);
+	  
+//	  TO LOOK HOW TO USE BY 
+//    @Modifying
+//    @Transactional
+//    public void deleteByEntretienIdAndCompagneIdCompagneAndDesignation(long idEntretien,String compagne,String designation);
+    
+	    @Modifying
+	    @Transactional
+	    public void deleteByEntretienIdAndDesignation(long idEntretien,String designation);
     
     
 }

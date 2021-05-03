@@ -72,4 +72,9 @@ public class DescriptionService implements IDescriptionService {
 		return descRepo.findByDescriptionPK(descPK);
 	}
 
+	@Override
+	public List<Description> getDescriptionByCompetence(long idCompetence) {
+		return (List<Description>) descRepo.findByCompetence(competenceRepo.findById(idCompetence).get());
+	}
+
 }

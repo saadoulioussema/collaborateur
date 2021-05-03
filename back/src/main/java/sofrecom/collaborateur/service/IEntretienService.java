@@ -8,8 +8,8 @@ import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.Entretien;
 
 public interface IEntretienService {
-	
-	public List<Entretien> getEIPsByManager(long id);
+	public Entretien addEntretien(Entretien entretien);
+	public List<Entretien> getEIPsByManagerAndCompagne(long id);
 	public DAOUser getCollaborateurByEntretien(long id) ;
-	public Entretien getEntretienByCollaborateur(long id) ;
+	public Entretien getEntretienByCollaborateurAndCompagne(long id) ;
 }

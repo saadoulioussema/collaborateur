@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javassist.tools.rmi.ObjectNotFoundException;
 import sofrecom.collaborateur.model.Objectif;
 import sofrecom.collaborateur.service.IObjectifService;
 
@@ -24,8 +23,8 @@ public class ObjectifController {
 
 	
 	@GetMapping("entretien/{id}/objectifs")
-	public List<Objectif> getObjectifListByEntretienAndCompagne(@PathVariable("id") long id) {
-		return 	objectifService.getObjectifListByEntretienAndCompagne(id);
+	public List<Objectif> getObjectifListByEntretienAndEntretienCompagne(@PathVariable("id") long id) {
+		return 	objectifService.getObjectifListByEntretienAndEntretienCompagne(id);
 
 	}
 		
@@ -41,16 +40,21 @@ public class ObjectifController {
 	public void evaluateObjectif(@RequestBody Objectif objectif) {
 		objectifService.evaluateObjectif(objectif);
 	}
-	
-	//A Verifier ObjectNotFoundException import 
-	@PostMapping("newObjectif/{id}")
+
+	@PostMapping("newObjectifs/{newEntretienId}/{idEntretien}")
 	@ResponseBody
-	public void newObjectif(@PathVariable("id") long id, @RequestBody Objectif objectif) throws ObjectNotFoundException {
-		objectifService.newObjectif(objectif,id);
+	public void newObjectif(@RequestBody List<Objectif> objectifs ,@PathVariable("newEntretienId") long newEntretienId,@PathVariable("idEntretien") long idEntretien){
+		objectifService.newObjectif(objectifs,newEntretienId,idEntretien);
 	}
 	
-	@DeleteMapping("deleteObjectif/{idCollaborateur}/{designation}")
-	public void deleteObjectif(@PathVariable("idCollaborateur") long id, @PathVariable("designation") String designation) {
-		 objectifService.deleteObjectif(id,designation);
+	@PutMapping("newOtherObjectifs/{idUser}")
+	@ResponseBody
+	public void addOtherObjectifsByUserAndCompagne(@RequestBody List<Objectif> objectifs ,@PathVariable("idUser") long idUser){
+		objectifService.addOtherObjectifsByUserAndCompagne(objectifs,idUser);
+	}
+		
+	@DeleteMapping("deleteNewObjectif/{idUser}/{designation}")
+	public void deleteNewObjectif(@PathVariable("idUser") long idUser, @PathVariable("designation") String designation) {
+		 objectifService.deleteNewObjectif(idUser,designation);
 	}
 }

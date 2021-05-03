@@ -12,4 +12,5 @@ public interface IDescriptionService {
 	public Description updateDescriptionLevel(long idNiveau,Description description);
 	public List<Description> getDescriptionList();
 	public Description getDescription(long idCompetence,long idNiveau);
+	public List<Description> getDescriptionByCompetence(long idCompetence);
 }

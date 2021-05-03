@@ -47,6 +47,15 @@ public class DescriptionController {
 		return  descriptionService.getDescription(idCompetence,idNiveau);
 	}
 	
+	@GetMapping("descriptions/{idCompetence}")
+	public List<Description> getDescriptionByCompetence(@PathVariable("idCompetence") long idCompetence) {
+		return  descriptionService.getDescriptionByCompetence(idCompetence);
+	}
+	
+	
+	
+	
+	
 	
 	
 }

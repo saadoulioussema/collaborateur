@@ -27,11 +27,6 @@ public class Objectif {
 	private String autoEvaluation;
 		
 	@ManyToOne
-    @JoinColumn(name = "idCompagne", referencedColumnName = "idCompagne")
-	private Compagne compagne;
-	
-
-	@ManyToOne
     @JoinColumn(name = "idEntretien", referencedColumnName = "id")
 	private Entretien entretien;
 	
@@ -80,14 +75,6 @@ public class Objectif {
 		this.autoEvaluation = autoEvaluation;
 	}
 	
-	public Compagne getCompagne() {
-		return compagne;
-	}
-
-	public void setCompagne(Compagne compagne) {
-		this.compagne = compagne;
-	}
-
 	public Entretien getEntretien() {
 		return entretien;
 	}
@@ -99,7 +86,8 @@ public class Objectif {
 	@Override
 	public String toString() {
 		return "Objectif [id=" + id + ", designation=" + designation + ", evaluation=" + evaluation + ", commentaire="
-				+ commentaire + ", autoEvaluation=" + autoEvaluation + ", compagne=" + compagne + ", entretien="
-				+ entretien + "]";
+				+ commentaire + ", autoEvaluation=" + autoEvaluation + ", entretien=" + entretien + "]";
 	}
+
+	
 }

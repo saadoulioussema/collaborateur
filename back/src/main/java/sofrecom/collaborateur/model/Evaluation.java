@@ -29,6 +29,8 @@ public class Evaluation implements Serializable {
 	@ManyToOne
     @JoinColumn(insertable=false,updatable=false, name = "idCompetence", referencedColumnName = "id")
 	private Competence competence;
+	
+	private int niveau ;
 
 	
 	
@@ -38,5 +40,13 @@ public class Evaluation implements Serializable {
 
 	public void setEvaluationPK(EvaluationPK evaluationPK) {
 		this.evaluationPK = evaluationPK;
+	}
+
+	public int getNiveau() {
+		return niveau;
+	}
+
+	public void setNiveau(int niveau) {
+		this.niveau = niveau;
 	}
 }

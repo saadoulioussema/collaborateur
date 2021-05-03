@@ -24,11 +24,6 @@ public class Compagne {
 	@Column(nullable = false)
 	private Boolean actif;
 	
-
-	@OneToMany(mappedBy="compagne")
-	private List<Objectif> objectifs;
-	
-
 	@OneToMany(mappedBy="compagne")
 	private List<Entretien> entretiens;
 	
