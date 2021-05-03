@@ -14,6 +14,11 @@ export class EntretienService {
   constructor(private http: HttpClient) { }
 
 
+  newEntretien(entretien:Entretien): Observable<any> {
+    let uri = "newEntretien";
+    return this.http.post<any[]>(this.baseUrl+uri,entretien);
+  }
+
 
   getCollaborateurByEntretien(entretien:Entretien): Observable<any> {
     let uri = "findCollaborateurByEntretien/"+entretien.id;

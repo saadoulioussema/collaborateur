@@ -31,13 +31,18 @@ export class ObjectifService {
     return  this.http.put<any[]>(this.baseUrl+uri,objectif);
   }
 
-  saveNewObjectif(objectif:Objectif,id:number): Observable<any> {
-    let uri="newObjectif/"+id;
-    return  this.http.post<any[]>(this.baseUrl+uri,objectif);
+  saveNewObjectifs(objectifs:Objectif[],newEntretienId:number,idEntretien:number): Observable<any> {
+    let uri="newObjectifs/"+newEntretienId+"/"+idEntretien;
+    return  this.http.post<any[]>(this.baseUrl+uri,objectifs);
   }
 
-  delete(id:number,designation:string): Observable<any> {
-    let uri="deleteObjectif/"+id+"/"+designation;
+  saveOtherNewObjectifs(objectifs:Objectif[],idUser:number): Observable<any> {
+    let uri="newOtherObjectifs/"+idUser;  
+    return  this.http.put<any[]>(this.baseUrl+uri,objectifs);
+  }
+
+  delete(idUser:number,designation:string): Observable<any> {
+    let uri="deleteNewObjectif/"+idUser+"/"+designation;
     return  this.http.delete<any[]>(this.baseUrl+uri);
   }
 }

@@ -136,7 +136,7 @@
 																	{{objectif.designation}}
 																</td>
 																<td>
-																	<select (change)="change(objectif)" class="form-control" name="autoEvaluation" [(ngModel)]="objectif.autoEvaluation">
+																	<select (change)="changeObjectif(objectif)" class="form-control" name="autoEvaluation" [(ngModel)]="objectif.autoEvaluation">
 																		<option value={{objectif.autoEvaluation}} selected>
 																			{{objectif.autoEvaluation}}</option>
 																		<option value="Performance à amelioré">Performance à
@@ -150,7 +150,7 @@
 																	</select>
 																</td>
 																<td>
-																	<textarea (change)="change(objectif)" class="form-control" placeholder="commentaire" name="commentaire" [(ngModel)]="objectif.commentaire">
+																	<textarea (change)="changeObjectif(objectif)" class="form-control" placeholder="commentaire" name="commentaire" [(ngModel)]="objectif.commentaire">
 																	</textarea>
 																</td>
 															</tr>
@@ -260,11 +260,11 @@
 																	<mat-form-field>
 																		<mat-label>choisir un niveau </mat-label>
 																		<mat-select (selectionChange)="saveCompetenceEvaluations(competence,$event.value)">
-																		  <mat-option *ngFor="let niveau of niveaux" [value]="niveau.id" 
-																		  matTooltip={{niveau.designation}} 
+																		  <mat-option *ngFor="let description of descriptions" [value]="description.descriptionPK.idNiveau" 
+																		  matTooltip={{description.description}} 
 																		  matTooltipPosition="right"
 																		  matTooltipClass="custom-tooltip">
-																		{{ niveau.id }}
+																		{{description.descriptionPK.idNiveau}}
 																		  </mat-option>
 																		</mat-select>
 																	</mat-form-field>
@@ -293,9 +293,8 @@
 							Valider
 						</div>
 						<div data-ktwizard-type="action-next">
-							<td><button [disabled]="autoEvaluation && stepNumber ==1 ||  
-													objectifFlag && stepNumber==2 || 
-													objectifFlag && !newObjectifFixed && stepNumber==2 || 
+							<td><button [disabled]="stepNumber ==1 &&autoEvaluation ||  
+													stepNumber==2  &&objectifFlag && !newObjectifFixed  || 
 													stepNumber==3 && !evaluationCompetence"
 										(click)="suivant()" class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">
 									Suivant

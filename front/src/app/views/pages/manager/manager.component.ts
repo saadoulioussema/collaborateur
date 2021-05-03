@@ -1,3 +1,5 @@
+import { EvaluationPK } from './../../../shared/evaluationPK';
+import { Evaluation } from './../../../shared/evaluation';
 import { EvaluationService } from './../../../core/services/evaluation.service';
 import { DescriptionPK } from './../../../shared/descriptionPK';
 import { DescriptionService } from './../../../core/services/description.service';
@@ -13,7 +15,7 @@ import { ObjectifService } from './../../../core/services/objectif.service';
 import { EntretienService } from './../../../core/services/entretien.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { Component, OnInit, Output, ViewChild, ElementRef} from '@angular/core';
+import { Component, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 
 
 import { Objectif } from './../../../shared/objectif';
@@ -22,6 +24,10 @@ import { Entretien } from './../../../shared/entretien';
 
 //Service 
 import { TranslateService } from '@ngx-translate/core';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+const status = ['ATTENTE_EVALUATION', 'AUTO_EVALUATION', 'EVALUATION'];
+
 
 
 @Component({
@@ -41,6 +47,7 @@ export class ManagerComponent implements OnInit {
 	@ViewChild('wizard', { static: true }) el: ElementRef;
 	// Manager properties
 	entretien: Entretien;
+
 	collaborateur: User = null;
 	EIPs: Entretien[];
 	//Les objectifs d'un collaborateur
@@ -63,18 +70,16 @@ export class ManagerComponent implements OnInit {
 
 	//Evaluation des compétences
 	competences: Competence[];
-	fakeDescriptions: Description[] = [];
+	fakeEvaluations: Evaluation[] = [];
 	descriptions: Description[] = [];
 	niveaux: Niveau[];
 	evaluationCompetence = false;
-
-	niveauId:number=1;
+	niveauId: number = 1;
 
 	constructor(private authNoticeService: AuthNoticeService,
 		private entretienService: EntretienService,
 		private objectifService: ObjectifService,
 		private competenceService: CompetenceService,
-		private niveauService: NiveauService,
 		private evaluationService: EvaluationService,
 		private descriptionService: DescriptionService,
 		private router: Router,
@@ -94,20 +99,24 @@ export class ManagerComponent implements OnInit {
 		));
 		this.authNoticeService.setNotice("Evaluez le collaborateur !", 'info');
 		setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
-		// Step 0 : Le manager doit evaluer le collaborateur si il a autoévaluer ses objectifs avant de passer 
-		if (EipsComponent.entretien.status == "AUTO_EVALUATION" || EipsComponent.entretien.status == "ATTENTE_EVALUATION")
-			this.autoEvaluation = true;
-		// Step 1-1: Prépaer les informations génerales du collaborateur depuis l'entreien pour le manager
-		this.entretienService.getCollaborateurByEntretien(EipsComponent.entretien).subscribe(collaborateur => this.collaborateur = collaborateur);
-		// Step 1-2: Prépaer les objectifs du collaborateur pour le manager 
-		this.objectifService.getObjectifList(EipsComponent.entretien.id).subscribe(data => this.objectifs = data);
-		// Step 2 : Prépaer un champ de saisie initial pour le manager 
-		this.obj = new Objectif();
-		this.newObjectifList.push(this.obj);
-		this.index++;
-		// Step 3 : Préparer liste des niveaux et compétences
-		// this.niveauService.getNiveauList().subscribe(data => this.niveaux = data);
-		this.competenceService.getCompetenceList().subscribe(data => this.competences = data);
+		if (EipsComponent.entretien) {
+			// Step 0 : Le manager doit evaluer le collaborateur si il a autoévaluer ses objectifs avant de passer 
+			if (EipsComponent.entretien.status == "AUTO_EVALUATION" || EipsComponent.entretien.status == "ATTENTE_EVALUATION")
+				this.autoEvaluation = true;
+			// Step 1-1: Prépaer les informations génerales du collaborateur depuis l'entreien pour le manager
+			this.entretienService.getCollaborateurByEntretien(EipsComponent.entretien).subscribe(collaborateur => this.collaborateur = collaborateur);
+			// Step 1-2: Prépaer les objectifs du collaborateur pour le manager 
+			this.objectifService.getObjectifList(EipsComponent.entretien.id).subscribe(data => this.objectifs = data);
+			// Step 2 : Prépaer un champ de saisie initial pour le manager 
+			this.obj = new Objectif();
+			this.newObjectifList.push(this.obj);
+			this.index++;
+			// Step 3 : Préparer liste des niveaux et compétences
+			// this.niveauService.getNiveauList().subscribe(data => this.niveaux = data);
+			this.competenceService.getCompetenceList().subscribe(data => this.competences = data);
+		}
+		else
+			this.router.navigate(["/eips"]);
 	}
 
 	ngAfterViewInit(): void {
@@ -136,7 +145,7 @@ export class ManagerComponent implements OnInit {
 				this.index++;
 			}
 			if (this.stepNumber == 2) {
-				//Initialiser la liste des newObjectifs au cas le manager retourne vers evaluation
+				//Initialiser la liste des newObjectifs au cas le manager retourne vers fixation des objectifs
 				this.newObjectifList = [];
 				this.index = 0;
 				this.obj = new Objectif();
@@ -144,9 +153,6 @@ export class ManagerComponent implements OnInit {
 				this.index++;
 			}
 		});
-
-
-
 		// Change event
 		wizard.on('change', (wizardObj) => {
 			setTimeout(() => {
@@ -160,16 +166,12 @@ export class ManagerComponent implements OnInit {
 		});
 	}
 
-
-
-
-
-
-	change(objectif: Objectif) {
+	changeObjectif(objectif: Objectif) {
 		this.autoEvaluation = false;
 		let flag = false;
 		if (this.objectifList.length == 0) {
 			console.log(" empty list  ! saving changes ");
+			objectif.evaluation = objectif.autoEvaluation;
 			this.objectifList.push(objectif);
 		}
 		else {
@@ -180,11 +182,25 @@ export class ManagerComponent implements OnInit {
 					this.objectifList[i].evaluation = objectif.autoEvaluation;
 					this.objectifList[i].commentaire = objectif.commentaire;
 				}
-				if (flag == false) {
-					console.log("objectif not found time to push a new objectif ");
-					this.objectifList.push(objectif);
-				}
 			}
+			if (flag == false) {
+				console.log("objectif not found time to push a new objectif ");
+				objectif.evaluation = objectif.autoEvaluation;
+				this.objectifList.push(objectif);
+			}
+		}
+	}
+
+	evaluateOldObjectifs() {
+		if (this.stepNumber == 1 && this.objectifList.length != 0) {
+			console.log(this.objectifList);
+			for (let i = 0; i < this.objectifList.length; i++) {
+				console.log("saving objectif ...");
+				this.objectifService.evaluate(this.objectifList[i]).subscribe();
+				console.log("saved");
+			}
+			this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
+			setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
 		}
 	}
 
@@ -216,52 +232,42 @@ export class ManagerComponent implements OnInit {
 	}
 
 
-	evaluateOldObjectifs() {
-		if (this.stepNumber == 1 && this.objectifList.length != 0) {
-			for (let i = 0; i < this.objectifList.length; i++) {
-				console.log("saving object ...");
-				this.objectifService.evaluate(this.objectifList[i]).subscribe();
-				console.log("saved");
-			}
-			this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
-			setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
-		}
-	}
 
 	fixingNewObjectifs() {
-		if (this.stepNumber == 1) {
-			//Manager can't save an empty new objectif
-			for (let i = 0; i < this.newObjectifList.length; i++) {
-				if (this.newObjectifList[i].designation == "")
-					this.objectifFlag = true;
-			}
-			this.entretienService.getEntretienByCollaborateur(this.collaborateur).subscribe(entretien => {
-				if (entretien.status != "ATTENTE_EVALUATION" ||
-					entretien.status != "ATTENTE_EVALUATION" ||
-					entretien.status != "AUTO_EVALUATION" ||
-					entretien.status != "EVALUATION") {
-					this.newObjectifFixed = true;
-					//Manager can pass already saved a new objectif 
-					this.objectifFlag = false;
-				}
-			});
+		if (!status.includes(EipsComponent.entretien.status)) {
+			//Manager can go to next step or add others new objectifs
+			this.newObjectifFixed = true;
 		}
-		// if (!this.objectifFlag && !this.newObjectifFixed) {
+		//Manager can't save an empty new objectif
+		for (let i = 0; i < this.newObjectifList.length; i++) {
+			if (this.newObjectifList[i].designation == "")
+				this.objectifFlag = true;
+		}
 		if (this.stepNumber == 2 && !this.objectifFlag) {
-			//Saving new Objectifs
-			for (let i = 0; i < this.newObjectifList.length; i++) {
-				if (this.savedObjectifs.indexOf(this.newObjectifList[i]) == -1 && this.newObjectifList[i].designation != "") {
-					console.log("saving new object ...");
-					if (EipsComponent.entretien.status == "EVALUATION_COMPETENCES")
-						this.objectifService.saveNewObjectif(this.newObjectifList[i], this.collaborateur.id).subscribe();
-					console.log("saved");
+			if (this.newObjectifFixed) {
+				//Saving ohter new Objectifs
+				console.log("saving other new objectifs...");
+				this.objectifService.saveOtherNewObjectifs(this.newObjectifList,this.collaborateur.id).subscribe();
+				// this.objectifService.saveNewObjectif(this.newObjectifList,0,EipsComponent.entretien.id).subscribe();
+				console.log("saved");
+				for (let i = 0; i < this.newObjectifList.length; i++) {
 					this.savedObjectifs.push(this.newObjectifList[i]);
 				}
-			}
-
-			if (this.savedObjectifs.length > 0 && this.newObjectifList[0].designation != "") {
 				this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
 				setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
+			}
+			else {
+				//Saving new Objectifs
+				let entretien: Entretien = new Entretien();
+				this.entretienService.newEntretien(entretien).subscribe(entretien => {
+					console.log("saving new objectifs...");
+					this.objectifService.saveNewObjectifs(this.newObjectifList, entretien.id, EipsComponent.entretien.id).subscribe();
+					EipsComponent.entretien.status = "FIXATION_OBJECTIFS";
+					console.log("saved");
+					this.savedObjectifs = this.newObjectifList;
+					this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
+					setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
+				});
 			}
 		}
 	}
@@ -269,91 +275,60 @@ export class ManagerComponent implements OnInit {
 	deleteSavedObjectif(savedObj: Objectif) {
 		this.savedObjectifs.splice(this.index - 1, 1);
 		this.index--;
-		this.objectifService.delete(EipsComponent.entretien.id, savedObj.designation).subscribe();
+		this.objectifService.delete(this.collaborateur.id, savedObj.designation).subscribe();
 	}
-
-
 
 	updateLevels(competence: Competence) {
-
-
-		if (competence.designation == "Diplôme") {
-			this.niveaux = [
-				{ "id": 1, "designation": "Inférieur à Bac + 2"},
-				{ "id": 2, "designation": "Technicien ou Licence  ( Bac + 3)"},
-				{ "id": 3, "designation": "Maitrise ( Bac + 4: Ancien Régime)"},
-				{ "id": 4, "designation": "Ingénieur Ou master"},
-				{ "id": 5, "designation": "Ingénieur Grandes Ecoles à l'internationales/Doctorat/E-MBA"}
-			];
-		}
-
-		if (competence.designation == "Expérience Professionnelle") {
-			this.niveaux = [
-				{ "id": 1, "designation": "Inférieur à 2 ans ou Inférieur à 1 an à Sofrecom"},
-				{ "id": 2, "designation": "Entre 2 à 5 ans ou de 1 à 4 ans avec 1 an à Sofrecom"},
-				{ "id": 3, "designation": "Entre 5 à 8 ans ou de 3 à 6 ans avec 2 ans à Sofrecom"},
-				{ "id": 4, "designation": "Entre 8 à 12 ans ou de 6 à 10 ans avec 2 ans à Sofrecom"},
-				{ "id": 5, "designation": "Plus que 12 ans ou plus que 10 ans avec 2 ans à Sofrecom"}
-			];
-		}
+		this.descriptionService.getDescriptionByCompetence(competence).subscribe(data => this.descriptions = data);
 	}
-
-
-
 
 	saveCompetenceEvaluations(competence: Competence, niveauId: number) {
 		console.log("Competence :", competence, ",selected level : ", niveauId);
 		this.evaluationCompetence = true;
-		
 		let flag = false;
-		let description: Description = new Description();
-		let descriptionPk: DescriptionPK = new DescriptionPK();
-		let designation= this.niveaux.find(i=>i.id === niveauId).designation;
 
-		description.descriptionPK = descriptionPk;
-		description.descriptionPK.idCompetence = competence.id;
-		description.descriptionPK.idNiveau = niveauId;
-		description.description=designation;
-		
-		
+		let evaluation: Evaluation = new Evaluation();
+		let evaluationPK: EvaluationPK = new EvaluationPK();
 
-		if (this.fakeDescriptions.length == 0) {
+		evaluation.evaluationPK = evaluationPK;
+		evaluation.evaluationPK.idUser = this.collaborateur.id;
+		evaluation.evaluationPK.idCompetence = competence.id;
+		evaluation.niveau = niveauId;
+
+		if (this.fakeEvaluations.length == 0) {
 			console.log(" empty list  ! saving changes ");
-			this.fakeDescriptions.push(description);
+			this.fakeEvaluations.push(evaluation);
 		}
 		else {
-			for (let i = 0; i < this.fakeDescriptions.length; i++) {
-				if (this.fakeDescriptions[i].descriptionPK.idCompetence == description.descriptionPK.idCompetence) {
+			for (let i = 0; i < this.fakeEvaluations.length; i++) {
+				if (this.fakeEvaluations[i].evaluationPK.idCompetence == evaluation.evaluationPK.idCompetence) {
 					console.log("competence found ! saving new level");
 					flag = true
-					console.log("updatig description ...");
-					this.fakeDescriptions[i].description=designation;
-					this.descriptionService.updateDescriptionLevel(this.fakeDescriptions[i], description.descriptionPK.idNiveau).subscribe();
-					this.fakeDescriptions[i].descriptionPK.idNiveau = description.descriptionPK.idNiveau;
+					console.log("updatig evaluation ...");
+					this.fakeEvaluations[i].niveau = niveauId;
+					this.evaluationService.updateEvaluationLevel(this.fakeEvaluations[i]).subscribe();
 					console.log("saved");
+
+					console.log("list after updating levels ...", this.fakeEvaluations);
 				}
-				if (flag == false) {
-					console.log("description not found time to push a new description");
-					this.fakeDescriptions.push(description);
-				}
+			}
+			if (flag == false) {
+				console.log("evaluation not found time to push a new evaluation");
+				this.fakeEvaluations.push(evaluation);
 			}
 		}
 	}
 
 	evaluateCompetence() {
-		if (this.stepNumber == 3 && this.fakeDescriptions.length != 0) {
-			for (let i = 0; i < this.fakeDescriptions.length; i++) {
-				this.descriptionService.getDescription(this.fakeDescriptions[i]).subscribe(data => {
+		if (this.stepNumber == 3 && this.fakeEvaluations.length != 0) {
+			console.log(this.fakeEvaluations);
+			for (let i = 0; i < this.fakeEvaluations.length; i++) {
+				this.evaluationService.getEvaluation(this.fakeEvaluations[i]).subscribe(data => {
 					if (!data) {
-						console.log("saving new description ...");
-						this.descriptionService.newDescription(this.fakeDescriptions[i], EipsComponent.entretien.id).subscribe();
+						console.log("saving new evaluation ...");
+						this.fakeEvaluations[i].evaluationPK.idUser = this.collaborateur.id;
+						this.evaluationService.newEvaluation(this.fakeEvaluations[i]).subscribe();
 						console.log("saved");
-						this.entretienService.getCollaborateurByEntretien(EipsComponent.entretien).subscribe(collaborateur => {
-							console.log("saving new evaluation ...");
-							this.collaborateur = collaborateur;
-							this.evaluationService.newEvaluation(collaborateur.id, this.fakeDescriptions[i].descriptionPK.idCompetence).subscribe();
-							console.log("saved");
-						});
 					}
 				});
 			}

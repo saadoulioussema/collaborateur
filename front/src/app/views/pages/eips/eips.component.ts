@@ -28,7 +28,7 @@ export class EipsComponent implements OnInit {
   managerId: string;
   objectifs: Objectif[];
   tempList: Objectif[] = [];
-  static entretien: Entretien;
+  static entretien: Entretien=null;
 
   constructor(private authNoticeService: AuthNoticeService,
     private entretienService: EntretienService,
