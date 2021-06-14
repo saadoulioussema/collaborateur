@@ -3,4 +3,7 @@ export class Competence {
     designation:string;
     definition:string;
     outilsEvaluation:string;
+
+    //temp
+    niveau:number;
 }

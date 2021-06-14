@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import sofrecom.collaborateur.model.DAOUser;
+import sofrecom.collaborateur.model.DTOUser;
 
 
 public interface IUserService {
@@ -13,4 +14,6 @@ public interface IUserService {
 	public DAOUser getUserById(long id);
 	void deleteUser(Long userId);
 	public void deleteAllUsers();
+	
+	public List<DTOUser> getUsersByManagerAndCompagne(long idManager);
 }

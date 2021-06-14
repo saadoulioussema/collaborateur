@@ -14,13 +14,8 @@ export class EvaluationService {
 
   baseUrl = "http://localhost:8081/";
 
-
-  // newEvaluation(idUser:number,idCompetence:number): Observable<any> {
-  //   let uri="newEvaluation/"+idUser+"/"+idCompetence;
-  //   return this.http.post<any[]>(this.baseUrl+uri,null);
-  // }
-
   newEvaluation(evaluation: Evaluation): Observable<any> {
+    console.log("LOook here ==>",evaluation)
     let uri = "newEvaluation";
     return this.http.post<any[]>(this.baseUrl + uri, evaluation);
   }
@@ -36,4 +31,11 @@ export class EvaluationService {
     let uri = "evaluation/" + idUser + "/" + idCompetence
     return this.http.get<any[]>(this.baseUrl + uri);
   }
+
+  getEvaluationListByCollaborateur(idUser: number): Observable<any> {
+    let uri = "evaluationList/" + idUser 
+    return this.http.get<any[]>(this.baseUrl + uri);
+  }
+
+
 }

@@ -22,4 +22,9 @@ export class UserService {
     let uri = "findUser/" +id;      
     return this.http.get<any>(this.baseUrl + uri); 
   }
+
+  getEquipeEnCours(id:number): Observable<any> {
+    let uri = "equipeEnCours/"+id;
+    return this.http.get<any[]>(this.baseUrl+uri);
+  }
 }

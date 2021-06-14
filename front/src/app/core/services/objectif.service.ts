@@ -21,6 +21,11 @@ export class ObjectifService {
     return this.http.get<any[]>(this.baseUrl+uri);
   }
 
+  getCurrentObjectifList(id:number): Observable<any> {
+    let uri="currentEntretien/"+id+"/objectifs";
+    return this.http.get<any[]>(this.baseUrl+uri);
+  }
+
   saveObjectif(objectif:Objectif): Observable<any> {
     let uri="autoEvaluateObjectif";
     return  this.http.put<any[]>(this.baseUrl+uri,objectif);
@@ -45,5 +50,19 @@ export class ObjectifService {
     let uri="deleteNewObjectif/"+idUser+"/"+designation;
     return  this.http.delete<any[]>(this.baseUrl+uri);
   }
+
+  saveFeedback(objectif:Objectif): Observable<any> {
+    let uri="feedbackObjectif";
+    return  this.http.put<any[]>(this.baseUrl+uri,objectif);
+  }
+
+  getAssignedObjectifs(idUser:number): Observable<any> {
+    let uri="assignedObjectifs/"+idUser;
+    return this.http.get<any[]>(this.baseUrl+uri);
+  }
+
+
+
+
 }
 

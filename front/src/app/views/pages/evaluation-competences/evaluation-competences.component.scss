@@ -1,0 +1,53 @@
+mark {
+	background-color: #fcffba;
+	color: black;
+}
+
+.table-hover>tbody>tr:hover {
+	// background-color: #d4d4d4;
+	background-color: #c2c2d6;
+}
+
+
+//improve table appearence and add search button
+
+.container {
+	padding-top: 50px;
+	padding-bottom: 10px;
+	color: #405065;
+}
+
+.search-hero {
+	max-width: 200px;
+	padding-bottom: 20px;
+
+}
+
+.form-control {
+	box-shadow: 0 10px 40px 0 #B0C1D9;
+}
+
+.form-control::placeholder {
+	font-family: FontAwesome;
+}
+
+table {
+	width: 100%;
+}
+
+td.mat-cell {
+	padding: 16px 16px 16px 16px;
+
+
+}
+
+th {
+	text-align: center;
+	background-color: #fd3a7a;
+	color: white;
+}
+
+td {
+	text-align: center;
+	vertical-align: middle;
+}

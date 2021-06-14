@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 // Angular
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
@@ -62,6 +63,8 @@ import * as typescript from 'highlight.js/lib/languages/typescript';
 import * as scss from 'highlight.js/lib/languages/scss';
 import * as xml from 'highlight.js/lib/languages/xml';
 import * as json from 'highlight.js/lib/languages/json';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 
 
@@ -106,7 +109,8 @@ export function hljsLanguages(): HighlightLanguage[] {
 		TranslateModule.forRoot(),
 		MatProgressSpinnerModule,
 		InlineSVGModule.forRoot(),
-		ThemeModule
+		MDBBootstrapModule.forRoot(),
+		ThemeModule,
 	],
 	exports: [],
 	providers: [
@@ -147,6 +151,7 @@ export function hljsLanguages(): HighlightLanguage[] {
 		LayoutUtilsService,
 		ObjectifService,
 		EntretienService,
+		
 	],
 	bootstrap: [AppComponent]
 })

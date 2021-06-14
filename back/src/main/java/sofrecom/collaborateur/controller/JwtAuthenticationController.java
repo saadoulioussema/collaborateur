@@ -3,7 +3,7 @@ package sofrecom.collaborateur.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import sofrecom.collaborateur.config.JwtTokenUtil;
-import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.DTOUser;
 import sofrecom.collaborateur.model.JwtRequest;
 import sofrecom.collaborateur.model.JwtResponse;
@@ -27,10 +25,6 @@ import sofrecom.collaborateur.serviceImpl.JwtUserDetailsService;
 @RestController
 public class JwtAuthenticationController {
 
-	
-
-	 
-	 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
@@ -43,18 +37,19 @@ public class JwtAuthenticationController {
 	
 	@PostMapping("/auth/register")
 	public ResponseEntity<?> saveUser(@RequestBody DTOUser user) throws Exception {
-		try {
-			DAOUser userfounded = userDetailsService.findByUsername(user.getUsername());
-			if (userfounded == null)
-			return ResponseEntity.ok(userDetailsService.save(user));
-			else 
-			return new ResponseEntity<>("ALREADY REGISTRED!", HttpStatus.CONFLICT);
-		} catch (DisabledException e) {
-			throw new Exception("USER_DISABLED", e);
-		}
-		catch (BadCredentialsException e) {
-			throw new Exception("INVALID_CREDENTIALS", e);
-		}
+//		try {
+//			DAOUser userfounded = userDetailsService.findByUsername(user.getUsername());
+//			if (userfounded == null)
+//			return ResponseEntity.ok(userDetailsService.save(user));
+//			else 
+//			return new ResponseEntity<>("ALREADY REGISTRED!", HttpStatus.CONFLICT);
+//		} catch (DisabledException e) {
+//			throw new Exception("USER_DISABLED", e);
+//		}
+//		catch (BadCredentialsException e) {
+//			throw new Exception("INVALID_CREDENTIALS", e);
+//		}
+		return ResponseEntity.ok(userDetailsService.save(user));
 
 	}
 	

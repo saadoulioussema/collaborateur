@@ -9,6 +9,7 @@ export class Entretien {
     axes:string;
     points:string;
     projet:string;
+    feedback:string;
     user:User;
     compagne:Compagne;
 }

@@ -1,0 +1,95 @@
+<kt-portlet>
+	<kt-portlet-body>
+		<!--begin: Wizard -->
+		<div #wizard class="kt-grid kt-wizard-v3 kt-wizard-v3--white" id="kt_wizard_v3" data-ktwizard-state="step-first">
+			<div class="kt-grid__item">
+				<!--begin: Form Wizard Nav -->
+				<div class="kt-wizard-v3__nav">
+					<div class="kt-wizard-v3__nav-items">
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step" data-ktwizard-state="current">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>1</span>Evaluation
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>2</span> Fixation des nouveaux objectifs
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									<span>3</span> Competences
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<!--end: Form Wizard Nav -->
+			</div>
+
+
+
+			<div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
+				<!--begin: Form Wizard Form-->
+				<div class="kt-form" id="kt_form">
+
+
+								<!-- <p>coooz </p> -->
+								<app-test-child [wizard]="wizard"></app-test-child>
+
+					<!--begin: Form Wizard Step 2-->
+					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+						<p>STEP 2 CONTENT </p>
+					</div>
+					<!--end: Form Wizard Step 2-->
+
+
+
+					<!--begin: Form Wizard Step 3-->
+					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+						<p>STEP 3 CONTENT </p>
+					</div>
+					<!--end: Form Wizard Step 3-->
+
+
+
+					<!--begin: Form Actions -->
+					<div class="kt-form__actions">
+						<div data-ktwizard-type="action-prev">
+							<td><button class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">Retour
+								</button></td>
+						</div>
+
+						<div data-ktwizard-type="action-next">
+							<td><button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">
+									Suivant
+								</button></td>
+						</div>
+
+						<div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-submit">
+							Valider
+						</div>
+					</div>
+					<!--end: Form Actions -->
+
+
+
+
+
+
+				</div>
+				<!--end: Form Wizard Form-->
+			</div>
+		</div>
+		<!--end: Wizard -->
+
+	</kt-portlet-body>
+</kt-portlet>

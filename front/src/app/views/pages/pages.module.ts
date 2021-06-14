@@ -1,4 +1,7 @@
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+
+
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -21,6 +24,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NiveauListComponent } from './niveau-list/niveau-list.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { BadgeModule} from 'angular-bootstrap-md';
+import { SuiviComponent } from './suivi/suivi.component';
+import { EvaluationComponent } from './evaluation/evaluation.component';
+import { TestComponent } from './test/test.component';
+import { TestChildComponent } from './test-child/test-child.component';
+import { FixingObjectifsComponent } from './fixing-objectifs/fixing-objectifs.component';
+import { EvaluationCompetencesComponent } from './evaluation-competences/evaluation-competences.component';
+import { FixingProjectComponent } from './fixing-project/fixing-project.component'
 
 
 
@@ -29,7 +41,7 @@ import { NiveauListComponent } from './niveau-list/niveau-list.component';
 
 
 @NgModule({
-	declarations: [MyPageComponent, CollaborateurComponent, ObjectifComponent, ManagerComponent, EipsComponent, NiveauListComponent],
+	declarations: [MyPageComponent, CollaborateurComponent, ObjectifComponent, ManagerComponent, EipsComponent, NiveauListComponent, SuiviComponent, EvaluationComponent, TestComponent, TestChildComponent, FixingObjectifsComponent, EvaluationCompetencesComponent, FixingProjectComponent],
 	exports: [],
 	imports: [
 		CommonModule,
@@ -42,7 +54,11 @@ import { NiveauListComponent } from './niveau-list/niveau-list.component';
 		MatSelectModule,
 		MatTooltipModule,
 		MatPaginatorModule,
-
+		//Added recently to improve table appearence
+		MatTableModule,
+		Ng2SearchPipeModule,
+		BadgeModule
+	
 	],
 	providers: [ObjectifService]
 })

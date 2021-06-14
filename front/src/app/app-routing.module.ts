@@ -1,3 +1,5 @@
+import { TestComponent } from './views/pages/test/test.component';
+import { SuiviComponent } from './views/pages/suivi/suivi.component';
 // Angular
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -36,6 +38,12 @@ const routes: Routes = [
 			},
 			{
 				path: 'autoEvaluate', component: CollaborateurComponent,
+			},
+			{
+				path: 'suivi', component: SuiviComponent,
+			},
+						{
+				path: 'test', component: TestComponent,
 			},
 			{
 				path: 'ngbootstrap',

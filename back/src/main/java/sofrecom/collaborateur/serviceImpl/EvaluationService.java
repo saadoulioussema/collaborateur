@@ -1,11 +1,17 @@
 package sofrecom.collaborateur.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import sofrecom.collaborateur.model.Entretien;
 import sofrecom.collaborateur.model.Evaluation;
 import sofrecom.collaborateur.model.EvaluationPK;
+import sofrecom.collaborateur.model.Status;
+import sofrecom.collaborateur.repository.CompagneRepository;
+import sofrecom.collaborateur.repository.CompetenceRepository;
+import sofrecom.collaborateur.repository.EntretienRepository;
 import sofrecom.collaborateur.repository.EvaluationRepository;
 import sofrecom.collaborateur.service.IEvaluationService;
 
@@ -13,7 +19,19 @@ import sofrecom.collaborateur.service.IEvaluationService;
 public class EvaluationService implements IEvaluationService {
 
 	@Autowired
+	CompagneService compagneService;
+
+	@Autowired
 	EvaluationRepository evalRepo;
+	@Autowired
+	EntretienRepository entretienRepo;
+
+	@Autowired
+	CompagneRepository compagneRepo;
+
+	@Autowired
+	CompetenceRepository competenceRepo;
+
 	@Override
 	public Evaluation addEvaluationByUserAndCompetence(long idUser, long idCompetence) {
 		EvaluationPK evalPK = new EvaluationPK();
@@ -27,6 +45,12 @@ public class EvaluationService implements IEvaluationService {
 
 	@Override
 	public Evaluation addEvaluation(Evaluation evaluation) {
+
+		String key = compagneService.getPreviousSemesterAndYear();
+		Entretien entretien = entretienRepo
+				.findEntretienByUserIdAndCompagneIdCompagne(evaluation.getEvaluationPK().getIdUser(), key);
+		entretien.setStatus(Status.EVALUATION_COMPETENCES);
+		entretienRepo.save(entretien);
 		evalRepo.save(evaluation);
 		return evaluation;
 	}
@@ -43,8 +67,7 @@ public class EvaluationService implements IEvaluationService {
 			eval.setNiveau(evaluation.getNiveau());
 			evalRepo.save(eval);
 			return eval;
-		}
-		else 
+		} else
 			return null;
 	}
 
@@ -54,5 +77,11 @@ public class EvaluationService implements IEvaluationService {
 		evalPK.setIdUser(idUser);
 		evalPK.setIdCompetence(idCompetence);
 		return evalRepo.findByEvaluationPK(evalPK);
+	}
+
+	@Override
+	public List<Evaluation> getEvaluationListByUser(long idUser) {
+		return evalRepo.findEvaluationByUserId(idUser);
+
 	}
 }

@@ -17,9 +17,6 @@ public interface ObjectifRepository extends CrudRepository<Objectif, Long> {
 	
     	
 	  public List<Objectif> findByEntretienAndEntretienCompagne(Entretien entretien,Compagne compagne);
-
-//    public List<Objectif> findByEntretienAndCompagne(Entretien entretien,Compagne compagne);
-     
 	  
 //	  TO LOOK HOW TO USE BY 
 //    @Modifying

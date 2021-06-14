@@ -25,7 +25,7 @@ public class DescriptionController {
 	
 		
 	@PostMapping("newDescription/{idEntretien}")
-	public Description addEvaluationByUserAndCompetence(@PathVariable("idEntretien") long idEntretien,@RequestBody Description description) {
+	public Description addDescription(@PathVariable("idEntretien") long idEntretien,@RequestBody Description description) {
 		return descriptionService.addDescription(idEntretien,description);
 	}
 	

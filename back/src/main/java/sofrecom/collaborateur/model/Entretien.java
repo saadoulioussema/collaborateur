@@ -42,6 +42,8 @@ public class Entretien {
 	@Column
 	private String certifications;
 	
+	@Column
+	private String feedback;
 	
 	@ManyToOne
     @JoinColumn(name = "idUser", referencedColumnName = "id")
@@ -59,6 +61,8 @@ public class Entretien {
 		super();
 	}
 
+	
+	
 	public long getId() {
 		return id;
 	}
@@ -123,6 +127,20 @@ public class Entretien {
 	public void setCertifications(String certifications) {
 		this.certifications = certifications;
 	}
+	
+	
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
+	}
+
+
 
 	public DAOUser getUser() {
 		return user;

@@ -11,6 +11,7 @@ export class User {
     password: string;
     pic: string ="";
     managerId:number;
+    entretienId:number;
     // fonctionId=FonctionTable.fonctions;
     // permission=PermissionsTable.permissions=[1];
     // public static fonctions: any = FonctionTable.fonctions;

@@ -2,5 +2,40 @@
 
 
 .table-hover > tbody > tr:hover {
-    background-color: #fd3a7a;
+    background-color: #c2c2d6;
+}
+
+
+
+.container {
+  padding-top: 50px;
+  padding-bottom: 10px;
+  color: #405065;
+}
+
+.search-hero {
+  max-width: 200px;
+  padding-bottom: 50px;
+
+}
+
+.form-control {
+  box-shadow: 0 10px 40px 0 #B0C1D9;
+}
+.form-control::placeholder  {
+  font-family: FontAwesome;
+}
+
+table {
+  width: 100%;
+}
+
+td.mat-cell {
+ padding: 16px 16px 16px 16px;
+
+}
+th{
+  text-align: center;
+  background-color:#fd3a7a;
+  color: white;
 }

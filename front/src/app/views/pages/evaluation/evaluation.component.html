@@ -1,0 +1,116 @@
+<div class="row" *ngIf="collaborateur">
+	<div class="col-lg-12 grid-margin stretch-card">
+		<div class="kt-heading kt-heading--md">Informations génerales sur le Collaborateur :</div>
+	</div>
+
+		<div class="col-xl-3">
+			<div class="form-group">
+				<label>Fullname :</label>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<mark>{{collaborateur.fullname}}</mark>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<label>Email : </label>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<mark>{{collaborateur.email}}</mark>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<label>Date Intégration :</label>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<mark>{{collaborateur.dateIntegration}}</mark>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<label>Matricule :</label>
+			</div>
+		</div>
+		<div class="col-xl-3">
+			<div class="form-group">
+				<mark>{{collaborateur.matricule}}</mark>
+			</div>
+		</div>
+</div>
+<br><br>
+
+<div class="row" *ngIf="collaborateur">
+	<div class="col-lg-12 grid-margin stretch-card">
+		<div class="card">
+			<div class="card-body">
+				<h4 class="card-title text-center">Evaluation des objectifs
+				</h4>
+				<br><br>
+				<div class="search-hero">
+					<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Rechercher">
+				</div>
+				<div class="table-responsive">
+					<table id="mytable" class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>
+									Objectif
+								</th>
+								<th>
+									Evaluation
+								</th>
+								<th>
+									Commentaire
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let objectif of objectifs |filter:searchText ; let i = index">
+								<td>
+									{{objectif.designation}}
+								</td>
+								<td>
+									<select (change)="changeObjectif(objectif)" class="form-control" name="autoEvaluation" [(ngModel)]="objectif.autoEvaluation">
+										<option value={{objectif.autoEvaluation}} selected>
+											{{objectif.autoEvaluation}}</option>
+										<option value="Performance à amelioré">Performance à
+											ameliore</option>
+										<option value="Zone de conformite">Zone de
+											conformite</option>
+										<option value="Objectif dépassé">Objectif
+											dépassé</option>
+										<option value="Performance exceptionnelle">
+											Performance exceptionnelle </option>
+									</select>
+								</td>
+								<td>
+									<textarea (change)="changeObjectif(objectif)" class="form-control" placeholder="commentaire" name="commentaire" [(ngModel)]="objectif.commentaire">
+									</textarea>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br><br>
+
+
+<div [hidden]="!message" class="alert alert-{{type}}" role="alert" #alertNotice>
+	<div class="alert-text" [innerHTML]="message"></div>
+</div>
+
+<div class="row justify-content-center">
+	<button (click)="save()" class="btn btn-default"><i class="fas fa-save"></i> Enregistrer</button>
+</div>

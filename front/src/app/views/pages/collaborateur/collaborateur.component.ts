@@ -1,3 +1,7 @@
+import { FormGroup, FormControl } from '@angular/forms';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from './../../../core/services/user.service';
 import { EntretienService } from './../../../core/services/entretien.service';
 import { AuthNotice } from './../../../core/auth/auth-notice/auth-notice.interface';
@@ -5,7 +9,7 @@ import { AuthNoticeService } from './../../../core/services/auth-notice.service'
 import { ObjectifService } from './../../../core/services/objectif.service';
 import { Objectif } from './../../../shared/objectif';
 import { Subscription } from 'rxjs';
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output, ViewChild } from '@angular/core';
 
 
 
@@ -21,10 +25,17 @@ export class CollaborateurComponent implements OnInit {
 	@Output() message: any = '';
 	private subscriptions: Subscription[] = [];
 	tempList: Objectif[] = [];
-	objectifs: Objectif[];
+	objectifs: Objectif[]=[];
 	objectif:Objectif;
 
+	evaluations = [
+		{ "id": 1, "designation": "Performance a ameliore" },
+		{ "id": 2, "designation": "Zone de conformite" },
+		{ "id": 3, "designation": "Objectif dépassé" },
+		{ "id": 4, "designation": "Performance exceptionnelle" }
+	];
 
+	searchText;
 	constructor(private objectifService: ObjectifService,
 				private entretienService: EntretienService,
 				private authNoticeService: AuthNoticeService,
@@ -51,8 +62,7 @@ export class CollaborateurComponent implements OnInit {
 	getCollaborateurObjectifs(id: number) {
 		this.userService.findUserById(id).subscribe(user=>
 		this.entretienService.getEntretienByCollaborateur(user).subscribe(entretien=>
-		this.objectifService.getObjectifList(entretien.id).subscribe(data=> this.objectifs = data)
-		));
+		this.objectifService.getObjectifList(entretien.id).subscribe(data=>this.objectifs = data)));
 	}
 
 
@@ -86,4 +96,5 @@ export class CollaborateurComponent implements OnInit {
 			setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
 		}
 	}
+
 }

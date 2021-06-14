@@ -17,7 +17,15 @@
 						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
 							<div class="kt-wizard-v3__nav-body">
 								<div class="kt-wizard-v3__nav-label">
-									Mon Eip
+								Mon Equipe
+								</div>
+								<div class="kt-wizard-v3__nav-bar"></div>
+							</div>
+						</a>
+						<a class="kt-wizard-v3__nav-item" href="javascript:;" data-ktwizard-type="step">
+							<div class="kt-wizard-v3__nav-body">
+								<div class="kt-wizard-v3__nav-label">
+									Mon Eip	
 								</div>
 								<div class="kt-wizard-v3__nav-bar"></div>
 							</div>
@@ -40,9 +48,12 @@
 									<div class="col-lg-12 grid-margin stretch-card">
 										<div class="card">
 											<div class="card-body">
-												<h4 class="card-title text-center">Liste des EIPs de la compagne en cours
+												<h4 class="card-title text-center">Liste des EIPs de la compagne précedente
 												</h4>
 												<br><br>
+												<div class="search-hero">
+													<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Rechercher">
+												</div>
 												<div class="table-responsive ">
 													<table id="mytable" class="table table-striped table-hover">
 														<thead>
@@ -59,15 +70,17 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr *ngFor="let entretien of EIPs" (click)="copyEntretien(entretien)">
+															<tr *ngFor="let entretien of EIPs |filter:searchText " (click)="copyEntretien(entretien)">
 																<td>
-																	{{entretien.user.fullname}}
+																	<i class="fas fa-user pull-left"></i> {{entretien.user.fullname}}
+
 																</td>
 																<td>
-																	{{entretien.compagne.idCompagne}}
+																	<mdb-badge pill="true" info="true"> {{entretien.compagne.idCompagne}}</mdb-badge>
 																</td>
 																<td>
-																	{{entretien.status}}
+																	<mdb-badge default="true"> {{entretien.status}}</mdb-badge>
+
 																</td>
 															</tr>
 														</tbody>
@@ -83,10 +96,59 @@
 					</div>
 					<!--end: Form Wizard Step 1-->
 
-
 					<!--begin: Form Wizard Step 2-->
 					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
-						<div class="kt-heading kt-heading--md">AUTO EVALUATION</div>
+						<!-- <div class="kt-heading kt-heading--md">AUTO EVALUATION</div> -->
+						<div class="kt-form__section kt-form__section--first">
+							<div class="kt-wizard-v3__form">
+
+								<div *ngFor="let collab of collabs" class="card-body">
+									<!-- <h4 class="card-title text-center">Liste des EIPs de la compagne en cours
+														</h4> 
+														<br><br> -->
+									<div class="row  d-flex justify-content-center">
+										<div class="col-xl-6 col-md-12">
+											<div class="card user-card-full">
+												<div class="row m-l-0 m-r-0">
+													<div class="col-sm-3 bg-c-lite-green user-profile">
+														<img src="../../../../assets/media/users/user2.jpg" class="img-radius" alt="User-Profile-Image">
+														<button (click)="toSuivi(collab.entretienId)" class="btn obj-button">Objectifs <i class="fas fa-flag-checkered"></i> </button>
+													</div>
+													<div class="col-sm-9">
+														<div class="card-block">
+															<h6 class="m-b-20 p-b-5 b-b-default f-w-600">Informations</h6>
+															<div class="row">
+																<div class="col-sm-6">
+																	<p class="m-b-10 f-w-600">Prénom </p>
+																	<h6 class="text-muted f-w-400">{{collab.fullname}}</h6>
+																</div>
+																<div class="col-sm-6">
+																	<p class="m-b-10 f-w-600">Matricule</p>
+																	<h6 class="text-muted f-w-400">{{collab.matricule}}</h6>
+																</div>
+																<div class="col-sm-12">
+																	<p class="m-b-10 f-w-600">Email</p>
+																	<h6 class="text-muted f-w-400">{{collab.email}}</h6>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br><br>
+							</div>
+						</div>
+					</div>
+					<!--end: Form Wizard Step 2-->
+
+
+					<!--begin: Form Wizard Step 3-->
+					<div class="kt-wizard-v3__content" data-ktwizard-type="step-content" data-ktwizard-state="current">
+						<!-- <div class="kt-heading kt-heading--md">AUTO EVALUATION</div> -->
 						<div class="kt-form__section kt-form__section--first">
 							<div class="kt-wizard-v3__form">
 								<div class="row">
@@ -96,6 +158,9 @@
 												<h4 class="card-title text-center">Evaluation des objectifs individuel
 												</h4>
 												<br><br>
+												<!-- <div class="search-hero">
+													<input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Rechercher">
+												</div> -->
 												<div class="table-responsive">
 													<table id="mytable" class="table table-striped">
 														<thead>
@@ -147,16 +212,26 @@
 							</div>
 						</div>
 					</div>
-					<!--end: Form Wizard Step 2-->
+					<!--end: Form Wizard Step 3-->
+
+
+
+
+
 
 					<!--begin: Form Actions -->
 					<div class="kt-form__actions">
 						<div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" data-ktwizard-type="action-prev">
 							Previous
 						</div>
+						<div data-ktwizard-type="action-next">
+							<td><button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u">
+									Suivant
+								</button></td>
+						</div>
 						<div data-ktwizard-type="action-submit">
-							<button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" [disabled]="!objectifs" (click)="autoEvaluate()" >
-							Auto Evaluate </button>
+							<button class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" [disabled]="!objectifs" (click)="autoEvaluate()">
+								Auto Evaluate </button>
 						</div>
 					</div>
 					<!--end: Form Actions -->

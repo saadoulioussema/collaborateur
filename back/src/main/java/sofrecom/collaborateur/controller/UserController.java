@@ -1,5 +1,7 @@
 package sofrecom.collaborateur.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,7 +33,7 @@ public class UserController {
 				newuser.setManagerId(user.getId());
 			}
 			newuser.setId(user.getId());
-			newuser.setFullname(user.getFullnamee());
+			newuser.setFullname(user.getFullname());
 			newuser.setUsername(user.getUsername());
 			newuser.setFonctionId(user.getFonction().getId());
 		}
@@ -44,7 +46,7 @@ public class UserController {
 				newuser.setManagerId(user2.getId());
 			}
 			newuser.setId(user2.getId());
-			newuser.setFullname(user2.getFullnamee());
+			newuser.setFullname(user2.getFullname());
 			newuser.setEmail(user2.getEmail());
 			newuser.setFonctionId(user2.getFonction().getId());
 		}
@@ -56,4 +58,11 @@ public class UserController {
 		return 	userService.getUserById(idUser);
 
 	}	
+	
+	
+	@GetMapping("equipeEnCours/{idManager}")
+	public List<DTOUser> getUsersByManagerAndCompagne(@PathVariable("idManager") long idManager) {
+		return userService.getUsersByManagerAndCompagne(idManager);
+	}
+	
 }

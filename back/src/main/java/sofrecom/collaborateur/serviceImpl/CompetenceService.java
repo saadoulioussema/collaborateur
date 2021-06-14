@@ -22,4 +22,10 @@ public class CompetenceService implements ICompetenceService{
 		return (List<Competence>) competenceRepo.findAll();
 	}
 
+
+	@Override
+	public Competence getCompetenceById(long id) {
+		return competenceRepo.findById(id).get();
+	}
+
 }

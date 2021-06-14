@@ -1,0 +1,55 @@
+<div *ngIf="collaborateur && assignedObjectifs.length > 0" class="kt-heading kt-heading--md">Objectifs assignés : </div>
+<div class="kt-form__section kt-form__section--first">
+	<div class="kt-wizard-v3__form">
+		<div class="form-group">
+			<div *ngFor="let obj of assignedObjectifs">
+				<label>Objectif Designation</label>
+           
+				<div class="row">
+					<div class="col-4">
+
+						<textarea class="form-control" placeholder="designation" [disabled]="true" name="savedObjectif" [(ngModel)]="obj.designation">
+                        </textarea>
+					</div>
+					<div class="col-4">
+						<button class="btn btn-sm-danger" (click)="deleteSavedObjectif(obj)" [hidden]="assignedObjectifs.length == 0">
+							<span class="material-icons">clear</span></button>
+						<br><br>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+	<br><br><br><br><br>
+</div>
+
+<!-- <div *ngIf="collaborateur" class="kt-heading kt-heading--md">Ajouter des nouveaux objectifs pour {{collaborateur.username}} </div> -->
+<!-- A verifer pourquoi le ngIf  -->
+
+<h4 *ngIf="collaborateur" class="card-title text-center">Ajouter des nouveaux objectifs pour {{collaborateur.username}}</h4>
+<div class="kt-form__section kt-form__section--first">
+	<div class="kt-wizard-v3__form">
+		<div class="form-group">
+			<div *ngFor="let objectif of newObjectifList">
+				<label>Objectif Designation</label>
+				<textarea (change)="addNew(objectif)" class="form-control" placeholder="designation ... " name="designation" [(ngModel)]="objectif.designation">
+                    </textarea>
+				<br>
+				<span class="form-text text-muted">Entrez un nouveau objectif svp.</span>
+				<br><br>
+			</div>
+			<button (click)="showOneLess()" [hidden]="index == 1" style="float:right" mat-raised-button>Supprimer
+				<span class="material-icons">clear</span></button>
+			<button (click)="showOneMore()" style="float:right" mat-raised-button color="warn">Ajouter un autre
+				<span class="material-icons">add</span></button>
+		</div>
+	</div>
+</div>
+
+<br><br>
+
+<div class="row justify-content-center">
+	<button (click)="save()" class="btn btn-default"><i class="fas fa-save"></i> Enregistrer </button>
+</div>

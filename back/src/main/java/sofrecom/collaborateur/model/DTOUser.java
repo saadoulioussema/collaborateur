@@ -6,6 +6,7 @@ public class DTOUser {
 	private long id;
 	private long managerId;
 	private long fonctionId;
+	private long entretienId;
 	private String fullname;
 	private String email;
 	private String matricule;
@@ -41,6 +42,15 @@ public class DTOUser {
 
 	public void setFonctionId(long fonctionId) {
 		this.fonctionId = fonctionId;
+	}
+
+	
+	public long getEntretienId() {
+		return entretienId;
+	}
+
+	public void setEntretienId(long entretienId) {
+		this.entretienId = entretienId;
 	}
 
 	public String getFullname() {

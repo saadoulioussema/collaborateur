@@ -1,0 +1,133 @@
+<!-- <div class="kt-heading kt-heading--md">Evaluation des competences</div> -->
+<div  [hidden]="evaluatedObjectifs" class="kt-form__section kt-form__section--first">
+    <div class="kt-wizard-v3__form">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Evaluation des competences
+                        </h4>
+                        <br><br>
+                        <div class="search-hero">
+                            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Rechercher">
+                        </div>
+                        <div class="table-responsive">
+                            <table id="mytable" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Designation
+                                        </th>
+                                        <th>
+                                            Définition
+                                        </th>
+                                        <th>
+                                            outils d'évaluation
+                                        </th>
+                                        <th>
+                                            Niveau
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let competence of competences |filter:searchText ">
+                                        <td>
+                                            {{competence.designation}}
+                                        </td>
+                                        <td>
+                                            {{competence.definition}}
+                                        </td>
+                                        <td>
+                                            {{competence.outilsEvaluation}}
+                                        </td>
+                                        <td (click)="updateLevels(competence)">
+                                            <mat-form-field>
+                                                <mat-label>choisir un niveau </mat-label>
+                                                <mat-select (selectionChange)="saveCompetenceEvaluations(competence,$event.value)">
+                                                    <mat-option *ngFor="let description of descriptions" [value]="description.descriptionPK.idNiveau" matTooltip={{description.description}} matTooltipPosition="right" matTooltipClass="custom-tooltip">
+                                                        {{description.descriptionPK.idNiveau}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="row justify-content-center">
+        <button (click)="evaluateCompetence()" class="btn btn-default"><i class="fas fa-save"></i> Enregistrer</button>
+    </div>
+</div>
+
+
+<div [hidden]="!evaluatedObjectifs" class="kt-form__section kt-form__section--first">
+    <div class="kt-wizard-v3__form">
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Evaluation des competences
+                        </h4>
+                        <br><br>
+                        <div class="search-hero">
+                            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" autocomplete="off" placeholder="Rechercher">
+                        </div>
+                        <div class="table-responsive">
+                            <table id="mytable" class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Designation
+                                        </th>
+                                        <th>
+                                            Définition
+                                        </th>
+                                        <th>
+                                            outils d'évaluation
+                                        </th>
+                                        <th>
+                                            Niveau
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let competence of evaluatedCompetences |filter:searchText ">
+                                        <td>
+                                            {{competence.designation}}
+                                        </td>
+                                        <td>
+                                            {{competence.definition}}
+                                        </td>
+                                        <td>
+                                            {{competence.outilsEvaluation}}
+                                        </td>
+                                        <td  (click)="updateLevels(competence)">
+                                            <mat-form-field >
+                                                <mat-label> {{competence.niveau}}</mat-label>
+                                                <mat-select (selectionChange)="saveCompetenceEvaluations(competence,$event.value)">
+                                                    <mat-option  *ngFor="let description of descriptions" [value]="description.descriptionPK.idNiveau" matTooltip={{description.description}} matTooltipPosition="right" matTooltipClass="custom-tooltip">
+                                                        {{description.descriptionPK.idNiveau}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

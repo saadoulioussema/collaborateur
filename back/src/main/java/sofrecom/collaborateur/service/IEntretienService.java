@@ -12,4 +12,7 @@ public interface IEntretienService {
 	public List<Entretien> getEIPsByManagerAndCompagne(long id);
 	public DAOUser getCollaborateurByEntretien(long id) ;
 	public Entretien getEntretienByCollaborateurAndCompagne(long id) ;
+	public Entretien saveProjectAndFormation(String projet, String formation,long idEntretien);
+	
+	public Entretien closeEntretien(Entretien entretien);
 }

@@ -24,4 +24,9 @@ export class CompetenceService {
     let uri="competences";
     return this.http.get<any[]>(this.baseUrl+uri);
   }
+
+  getCompetence(id:number): Observable<any> {
+    let uri="competence/"+id;
+    return this.http.get<any[]>(this.baseUrl+uri);
+  }
 }

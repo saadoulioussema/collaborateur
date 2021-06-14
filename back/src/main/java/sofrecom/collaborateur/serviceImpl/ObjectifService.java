@@ -1,13 +1,7 @@
 package sofrecom.collaborateur.serviceImpl;
-
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import sofrecom.collaborateur.model.Compagne;
 import sofrecom.collaborateur.model.DAOUser;
 import sofrecom.collaborateur.model.Entretien;
@@ -23,6 +17,9 @@ import sofrecom.collaborateur.service.IObjectifService;
 public class ObjectifService implements IObjectifService {
 
 	@Autowired
+	CompagneService compagneService;
+
+	@Autowired
 	ObjectifRepository objectifRepo;
 
 	@Autowired
@@ -34,49 +31,50 @@ public class ObjectifService implements IObjectifService {
 	@Autowired
 	EntretienRepository entretienRepo;
 
-	List<String> semestre = Arrays.asList("01", "02", "03", "04", "05", "06");
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-	Date date = new Date(System.currentTimeMillis());
-	String year = formatter.format(date).substring(0, 4);
-	String month = formatter.format(date).substring(5, 7);
-	int yearConverted = Integer.parseInt(year);
-
-	Entretien saved;
 
 	@Override
 	public List<Objectif> getObjectifListByEntretienAndEntretienCompagne(long id) {
-		Entretien entretien = entretienRepo.findById(id).get();
+		// For Testing
+		if (entretienRepo.findById(id) == null)
+			throw new NullPointerException();
 
-		if (semestre.contains(month)) {
-			String correctYear = String.valueOf(yearConverted - 1);
-			String key = "S2" + correctYear;
-			Compagne compagne = compagneRepo.findByIdCompagne(key);
-			return (List<Objectif>) objectifRepo.findByEntretienAndEntretienCompagne(entretien, compagne);
-		} else {
-			String key = "S1" + year;
-			Compagne compagne = compagneRepo.findByIdCompagne(key);
-			return (List<Objectif>) objectifRepo.findByEntretienAndEntretienCompagne(entretien, compagne);
-		}
+		Entretien entretien = entretienRepo.findById(id).get();
+		String key = compagneService.getPreviousSemesterAndYear();
+		Compagne compagne = compagneRepo.findByIdCompagne(key);
+		return (List<Objectif>) objectifRepo.findByEntretienAndEntretienCompagne(entretien, compagne);
 	}
 
 	@Override
-	public void autoEvaluateObjectif(Objectif objectif) {
-		objectifRepo.save(objectif);
+	public List<Objectif> getObjectifListByCurrentEntretienAndEntretienCompagne(long id) {
+
+		Entretien entretien = entretienRepo.findById(id).get();
+		String key = compagneService.getSemesterAndYear();
+		Compagne compagne = compagneRepo.findByIdCompagne(key);
+		return (List<Objectif>) objectifRepo.findByEntretienAndEntretienCompagne(entretien, compagne);
+
+	}
+
+	@Override
+	public Objectif autoEvaluateObjectif(Objectif objectif) {
+		Objectif saveObjectif = objectifRepo.save(objectif);
+
 		Entretien entretien = entretienRepo.findById(objectif.getEntretien().getId()).get();
 		entretien.setStatus(Status.AUTO_EVALUATION);
 		entretienRepo.save(entretien);
+		return saveObjectif;
 	}
 
 	@Override
-	public void evaluateObjectif(Objectif objectif) {
-		objectifRepo.save(objectif);
+	public Objectif evaluateObjectif(Objectif objectif) {
+		Objectif saveObjectif = objectifRepo.save(objectif);
 		Entretien entretien = entretienRepo.findById(objectif.getEntretien().getId()).get();
 		entretien.setStatus(Status.EVALUATION);
 		entretienRepo.save(entretien);
+		return saveObjectif;
 	}
 
 	@Override
-	public void newObjectif(List<Objectif> objectifs, long newEntretienId, long idEntretien) {
+	public List<Objectif> newObjectif(List<Objectif> objectifs, long newEntretienId, long idEntretien) {
 
 		/****************************************************************************************************************
 		 * 
@@ -100,68 +98,62 @@ public class ObjectifService implements IObjectifService {
 		 * 
 		 *************************************************************************************************************/
 
-		if (semestre.contains(month)) {
-			// en train de valider les objectifs de la compagne S2+year donc key => S1+year
-			String key = "S1" + year;
-			compagne = compagneRepo.findByIdCompagne(key);
-			Entretien newEntretien = entretienRepo.findById(newEntretienId).get();
-			newEntretien.setStatus(Status.ATTENTE_EVALUATION);
-			newEntretien.setCompagne(compagne);
-			newEntretien.setUser(user);
-			entretienRepo.save(newEntretien);
-			for (int i = 0; i < objectifs.size(); i++) {
-				objectifs.get(i).setEntretien(newEntretien);
-				objectifRepo.save(objectifs.get(i));
-			}
-		} else {
-			String key = "S2" + year;
-			compagne = compagneRepo.findByIdCompagne(key);
-			Entretien newEntretien = entretienRepo.findById(newEntretienId).get();
-			newEntretien.setStatus(Status.ATTENTE_EVALUATION);
-			newEntretien.setCompagne(compagne);
-			newEntretien.setUser(user);
-			entretienRepo.save(newEntretien);
-			for (int i = 0; i < objectifs.size(); i++) {
-				objectifs.get(i).setEntretien(newEntretien);
-				objectifRepo.save(objectifs.get(i));
-			}
+		// en train de valider les objectifs de la compagne précedente donc semestre
+		// doit contenir la semestre courante et l'année kifkif
+		String key = compagneService.getSemesterAndYear();
+		compagne = compagneRepo.findByIdCompagne(key);
+		Entretien newEntretien = entretienRepo.findById(newEntretienId).get();
+		newEntretien.setStatus(Status.ATTENTE_EVALUATION);
+		newEntretien.setCompagne(compagne);
+		newEntretien.setUser(user);
+		entretienRepo.save(newEntretien);
+		for (int i = 0; i < objectifs.size(); i++) {
+			objectifs.get(i).setEntretien(newEntretien);
+			objectifRepo.save(objectifs.get(i));
 		}
-
+		return objectifs;
 	}
 
 	@Override
 	public void addOtherObjectifsByUserAndCompagne(List<Objectif> objectifs, long idUser) {
 		DAOUser user = userRepo.findById(idUser).get();
-		if (semestre.contains(month)) {
-			String key = "S1" + year;
-			Compagne compagne = compagneRepo.findByIdCompagne(key);
-			Entretien newEntretienFounded = entretienRepo.findByUserAndCompagne(user, compagne);
-			for (int i = 0; i < objectifs.size(); i++) {
-				objectifs.get(i).setEntretien(newEntretienFounded);
-				objectifRepo.save(objectifs.get(i));
-			}
+		String key = compagneService.getSemesterAndYear();
+		Compagne compagne = compagneRepo.findByIdCompagne(key);
+		Entretien newEntretienFounded = entretienRepo.findByUserAndCompagne(user, compagne);
+		for (int i = 0; i < objectifs.size(); i++) {
+			objectifs.get(i).setEntretien(newEntretienFounded);
+			objectifRepo.save(objectifs.get(i));
 		}
 	}
 
 	@Override
-	public void deleteNewObjectif(long idUser, String designation) {
+	public List<Objectif> deleteNewObjectif(long idUser, String designation) {
 		DAOUser user = userRepo.findById(idUser).get();
-		if (semestre.contains(month)) {
-			String key = "S1" + year;
-			Compagne compagne = compagneRepo.findByIdCompagne(key);
-			Entretien newEntretien = entretienRepo.findByUserAndCompagne(user, compagne);			
-			objectifRepo.deleteByEntretienIdAndDesignation(newEntretien.getId(),designation);
-			
-
-		} else {
-			String key = "S2" + year;
-			Compagne compagne = compagneRepo.findByIdCompagne(key);
-			Entretien newEntretien = entretienRepo.findByUserAndCompagne(user, compagne);
-			objectifRepo.deleteByEntretienIdAndDesignation(newEntretien.getId(),designation);	
-		}
+		String key = compagneService.getSemesterAndYear();
+		Compagne compagne = compagneRepo.findByIdCompagne(key);
+		Entretien newEntretien = entretienRepo.findByUserAndCompagne(user, compagne);
+		objectifRepo.deleteByEntretienIdAndDesignation(newEntretien.getId(), designation);
+		return newEntretien.getObjectifs();
 	}
 
-	
+	@Override
+	public Objectif feedbackObjectif(Objectif objectif) {
+		Objectif objectifReturned = objectifRepo.findById(objectif.getId()).get();
+		objectifReturned.setFeedback(objectif.getFeedback());
+		return objectifRepo.save(objectifReturned);
+
+	}
+
+	@Override
+	public List<Objectif> getAssignedObjectifs(long idUser) {
+		DAOUser user = userRepo.findById(idUser).get();
+		String key = compagneService.getSemesterAndYear();
+		Compagne compagne = compagneRepo.findByIdCompagne(key);
+		Entretien entretien = entretienRepo.findByUserAndCompagne(user, compagne);
+		return entretien.getObjectifs();
+
+	}
+
 	/****************************************************************************************************************
 	 * 
 	 * FOR TESTING PURPOSE
@@ -171,29 +163,39 @@ public class ObjectifService implements IObjectifService {
 	@Override
 	public Objectif addObjectif(Objectif objectif) {
 		return objectifRepo.save(objectif);
-		
+	}
+
+	@Override
+	public Objectif getObjectif(long id) {
+		return objectifRepo.findById(id).get();
 	}
 
 	@Override
 	public Objectif updateObjectif(Objectif objectif) {
 		Objectif obj = objectifRepo.findById(objectif.getId()).get();
-		
+
 		obj.setAutoEvaluation(objectif.getAutoEvaluation());
 		obj.setEvaluation(objectif.getEvaluation());
 		obj.setCommentaire(objectif.getCommentaire());
 		obj.setDesignation(objectif.getDesignation());
 		obj.setEntretien(objectif.getEntretien());
-		
+
 		return objectifRepo.save(objectif);
-		
+
 	}
 
 	@Override
 	public void deleteObjectif(Objectif objectif) {
-	objectifRepo.deleteById(objectif.getId());
-	}
-	
-	
-	
+		final Objectif obj = objectifRepo.findById(objectif.getId()).get();
+		if (obj != null) {
+			objectifRepo.delete(obj);
+		}
 
+		objectifRepo.deleteById(objectif.getId());
+	}
+
+	@Override
+	public List<Objectif> getAllObjectifs() {
+		return (List<Objectif>) objectifRepo.findAll();
+	}
 }

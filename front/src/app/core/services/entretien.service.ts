@@ -35,4 +35,13 @@ export class EntretienService {
     let uri = "EIPs/"+id;    
     return this.http.get<any[]>(this.baseUrl+uri);
   }
+
+  saveProjectAndFormation(projet:string,formation:string,idEntretien:number): Observable<any> {
+    let uri = "saveProjectAndFormation/"+projet+"/"+formation+"/"+idEntretien;   
+    return this.http.put<any[]>(this.baseUrl+uri,null);
+  }
+  closeEntretien(entretien:Entretien){
+    let uri = "closeEntretien"  
+    return this.http.put<any[]>(this.baseUrl+uri,entretien);
+  }
 }

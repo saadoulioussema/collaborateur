@@ -56,12 +56,10 @@ public class DAOUser {
 	public long getId() {
 		return id;
 	}
-	public String getFullnamee() {
-		return fullname;
-	}
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -104,6 +102,11 @@ public class DAOUser {
 		return fullname;
 	}
 	
+	
+	public void setFullname(String fullname) {
+		this.fullname = fullname;
+	}
+
 	public DAOUser getManager() {
 		return manager;
 	}

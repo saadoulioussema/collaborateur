@@ -1,7 +1,7 @@
+import { User } from './../../../shared/user';
 import { UserService } from './../../../core/services/user.service';
 import { ObjectifService } from './../../../core/services/objectif.service';
 import { Objectif } from './../../../shared/objectif';
-import { User } from '../../../shared/user';
 import { EntretienService } from './../../../core/services/entretien.service';
 import { AuthNoticeService } from './../../../core/services/auth-notice.service';
 import { AuthNotice } from './../../../core/auth/auth-notice/auth-notice.interface';
@@ -10,6 +10,7 @@ import { Entretien } from './../../../shared/entretien';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Component, OnInit, Output, ElementRef, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'sc-eips',
@@ -28,8 +29,11 @@ export class EipsComponent implements OnInit {
   managerId: string;
   objectifs: Objectif[];
   tempList: Objectif[] = [];
-  static entretien: Entretien=null;
+  static entretien: Entretien = null;
+  searchText;
 
+  collabs: User[] = [];
+  static idEntretien: number;
   constructor(private authNoticeService: AuthNoticeService,
     private entretienService: EntretienService,
     private router: Router,
@@ -53,6 +57,10 @@ export class EipsComponent implements OnInit {
 
     // Step 2 : Auto Evaluation : prépaer les objectifs du manager 
     this.getManagerObjectifs(id);
+
+
+    // Step 3": Manager equipe de la compagne en cours
+    this.userService.getEquipeEnCours(id).subscribe(data => this.collabs = data );
   }
 
   ngAfterViewInit(): void {
@@ -76,7 +84,7 @@ export class EipsComponent implements OnInit {
 
 
   getEIPs(id: number) {
-    this.entretienService.getEntretienList(id).subscribe(data => this.EIPs = data);
+    this.entretienService.getEntretienList(id).subscribe(data => {this.EIPs = data,console.log(this.EIPs)});
   }
 
 
@@ -86,22 +94,27 @@ export class EipsComponent implements OnInit {
   }
 
   getManagerObjectifs(id: number) {
-		this.userService.findUserById(id).subscribe(user=>
-		this.entretienService.getEntretienByCollaborateur(user).subscribe(entretien=> {
-      if (entretien)
-      this.objectifService.getObjectifList(entretien.id).subscribe(data=> this.objectifs = data);
-    }));
-	}
+    this.userService.findUserById(id).subscribe(user =>
+      this.entretienService.getEntretienByCollaborateur(user).subscribe(entretien => {
+        if (entretien)
+          this.objectifService.getObjectifList(entretien.id).subscribe(data => this.objectifs = data);
+      }));
+  }
 
   autoEvaluate() {
-		console.log("in auto evaluate method ");
-		for (let i = 0; i < this.tempList.length; i++) {
-			console.log("saving ...");
-			this.objectifService.saveObjectif(this.tempList[i]).subscribe();
-			console.log("saved !");
-			this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
-			setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
-		}
-	}
+    console.log("in auto evaluate method ");
+    for (let i = 0; i < this.tempList.length; i++) {
+      console.log("saving ...");
+      this.objectifService.saveObjectif(this.tempList[i]).subscribe();
+      console.log("saved !");
+      this.authNoticeService.setNotice("Votre modification a été sauvgarder avec success !", 'success');
+      setTimeout(() => { this.authNoticeService.setNotice(null, null); }, 4000);
+    }
+  }
 
+
+  toSuivi(id: number) {
+    EipsComponent.idEntretien = id;
+    this.router.navigate(["/suivi"]);
+  }
 }

@@ -7,4 +7,6 @@ import sofrecom.collaborateur.model.Competence;
 public interface ICompetenceService {
 
 	public List<Competence> getCompetenceList();
+	
+	public Competence getCompetenceById(long id);
 }

@@ -1,0 +1,28 @@
+						<!-- <div *ngIf="collaborateur" class="kt-heading kt-heading--md">Fixer un Nouveau Projet Professionel/Formation pour {{collaborateur.username}} </div> -->
+						<!-- A verifer pourquoi le ngIf  -->
+						<h4 *ngIf="collaborateur" class="card-title text-center">Fixer un Nouveau Projet Professionel/Formation pour {{collaborateur.username}}</h4>
+						<div class="kt-form__section kt-form__section--first">
+							<div class="kt-wizard-v3__form">
+								<div class="form-group">
+									<div>
+										<label>Projet Professionel</label>
+										<textarea #projet class="form-control" placeholder="projet ... "></textarea>
+										<br>
+										<span class="form-text text-muted">Entrez un projet professionel svp.</span>
+										<br><br>
+									</div>
+								</div>
+								<div class="form-group">
+									<div>
+										<label>Formation </label>
+										<textarea #formation class="form-control" placeholder="formation ... "></textarea>
+										<br>
+										<span class="form-text text-muted">Entrez une formation svp.</span>
+										<br><br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row justify-content-center">
+							<button (click)="fixProjectAndFormation()" class="btn btn-default"><i class="fas fa-save"></i> Enregistrer</button>
+						</div>
